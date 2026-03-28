@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EEE Result Portal — Mangayarkarasi College of Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+/* ══════════════════════════════════════
+   ROOT VARIABLES
+══════════════════════════════════════ */
+:root {
+  --ink:       #1a1a2e;
+  --paper:     #f5f0e8;
+  --cream:     #faf7f2;
+  --rule:      #d4c9b0;
+  --gold:      #c8922a;
+  --gold-lt:   #f0d98a;
+  --red:       #c0392b;
+  --red-bg:    #fdecea;
+  --green:     #1e6b3e;
+  --green-bg:  #eaf7ee;
+  --blue:      #1a4a7a;
+  --blue-bg:   #e8f0fa;
+  --orange:    #a84200;
+  --orange-bg: #fef0e6;
+  --shadow:    0 4px 24px rgba(26,26,46,.10);
+  --shadow-lg: 0 12px 48px rgba(26,26,46,.16);
+
+  /* AU portal navy */
+  --au-navy:   #1a237e;
+  --au-nav2:   #283593;
+  --au-accent: #e65100;
+  --au-pass:   #2e7d32;
+  --au-fail:   #c62828;
+  --au-ua:     #e65100;
+  --au-line:   #c5cae9;
+  --au-bg:     #f3f4f9;
+  --au-card:   #ffffff;
+  --au-border: #9fa8da;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;line-height:1.5;}
+
+/* ══════════════════════════════════════
+   TOP HEADER
+══════════════════════════════════════ */
+header{
+  background:var(--ink);color:var(--paper);
+  padding:0 40px;
+  display:flex;align-items:stretch;justify-content:space-between;gap:0;
+  border-bottom:3px solid var(--gold);
+  min-height:64px;
+}
+.hdr-left{display:flex;align-items:center;gap:16px;padding:14px 0;}
+.hdr-logo{font-size:2rem;line-height:1;}
+.hdr-title h1{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--gold-lt);line-height:1.15;}
+.hdr-title p{font-size:0.72rem;opacity:.6;margin-top:2px;}
+.hdr-nav{display:flex;align-items:stretch;gap:0;}
+.hdr-nav-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:0 22px;
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.8rem;
+  cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,.65);
+  border-bottom:3px solid transparent;border-top:3px solid transparent;
+  margin-top:0;letter-spacing:.3px;transition:color .15s,border-color .15s;
+}
+.hdr-nav-btn:hover{color:white;}
+.hdr-nav-btn.active{color:var(--gold-lt);border-bottom-color:var(--gold);}
+.hdr-nav-btn .nav-icon{font-size:1.1rem;}
+
+/* ══════════════════════════════════════
+   PAGES
+══════════════════════════════════════ */
+.page{display:none;} .page.active{display:block;}
+
+/* ══════════════════════════════════════
+   STAFF PAGE STYLES
+══════════════════════════════════════ */
+.staff-main{max-width:1440px;margin:0 auto;padding:32px 32px;}
+
+/* Upload */
+#upload-section{
+  background:var(--cream);border:2px dashed var(--rule);border-radius:12px;
+  padding:56px 40px;text-align:center;cursor:pointer;
+  transition:border-color .2s,background .2s;
+}
+#upload-section:hover,#upload-section.dragover{border-color:var(--gold);background:#fef9ee;}
+.upload-icon{font-size:3rem;margin-bottom:14px;display:block;}
+#upload-section h2{font-family:'Playfair Display',serif;font-size:1.35rem;margin-bottom:8px;}
+#upload-section p{color:#7a7060;font-size:.85rem;}
+#upload-section p strong{color:var(--gold);}
+#file-input{display:none;}
+.upload-btn{
+  display:inline-block;margin-top:18px;background:var(--ink);color:var(--paper);
+  padding:10px 28px;border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer;
+  transition:background .15s;letter-spacing:.3px;
+}
+.upload-btn:hover{background:var(--gold);color:var(--ink);}
+
+/* Progress */
+#progress-wrap{display:none;margin-top:20px;background:var(--cream);border-radius:10px;padding:24px 32px;border:1px solid var(--rule);}
+.progress-bar-outer{background:var(--rule);border-radius:99px;height:6px;overflow:hidden;margin:10px 0;}
+.progress-bar-inner{height:100%;background:var(--gold);border-radius:99px;width:0%;transition:width .3s;}
+#progress-text{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--gold);}
+
+/* Summary cards */
+#summary-section{display:none;margin-top:28px;}
+.summary-strip{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
+.sum-card{background:var(--cream);border:1px solid var(--rule);border-radius:10px;padding:16px 20px;flex:1;min-width:120px;text-align:center;}
+.sum-card .num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;color:var(--ink);line-height:1;}
+.sum-card .lbl{font-size:.7rem;color:#7a7060;margin-top:4px;font-weight:500;letter-spacing:.3px;text-transform:uppercase;}
+.sum-card.red{border-color:#e8b4b0;background:var(--red-bg);} .sum-card.red .num{color:var(--red);}
+.sum-card.green{border-color:#a8d5b5;background:var(--green-bg);} .sum-card.green .num{color:var(--green);}
+.sum-card.gold{border-color:var(--gold);background:#fef9ee;} .sum-card.gold .num{color:var(--gold);}
+
+/* Buttons */
+.btn{padding:9px 20px;border-radius:6px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.82rem;cursor:pointer;border:none;letter-spacing:.3px;transition:opacity .15s,transform .1s;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--ink);color:var(--paper);}
+.btn-primary:hover{background:#2a2a4e;}
+.btn-gold{background:var(--gold);color:var(--ink);}
+.btn-gold:hover{opacity:.88;}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--rule);}
+.btn-outline:hover{border-color:var(--ink);}
+
+.export-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:20px;}
+.export-bar h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-right:auto;}
+
+/* Tabs */
+.tab-bar{display:flex;gap:0;border-bottom:2px solid var(--rule);margin-bottom:18px;overflow-x:auto;}
+.tab-btn{padding:10px 20px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:.8rem;cursor:pointer;background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;color:#7a7060;white-space:nowrap;transition:color .15s,border-color .15s;letter-spacing:.3px;}
+.tab-btn:hover{color:var(--ink);}
+.tab-btn.active{color:var(--ink);border-bottom-color:var(--gold);font-weight:600;}
+.tab-badge{display:inline-block;background:var(--rule);color:var(--ink);border-radius:99px;font-size:.63rem;padding:1px 6px;margin-left:5px;font-weight:600;}
+.tab-btn.active .tab-badge{background:var(--gold);}
+
+/* Filter bar */
+.filter-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px;padding:12px 14px;background:var(--cream);border-radius:8px;border:1px solid var(--rule);}
+.filter-bar input,.filter-bar select{background:white;border:1.5px solid var(--rule);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.82rem;padding:7px 12px;outline:none;transition:border-color .15s;}
+.filter-bar input:focus,.filter-bar select:focus{border-color:var(--gold);}
+.filter-bar input{width:220px;}
+.filter-label{font-size:.78rem;color:#7a7060;font-weight:500;}
+
+/* Result table */
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--rule);box-shadow:var(--shadow);}
+table{width:100%;border-collapse:collapse;font-size:.8rem;background:white;}
+thead th{background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace;font-size:.66rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;padding:9px 10px;text-align:center;white-space:nowrap;border-right:1px solid #2e2e4a;position:sticky;top:0;z-index:2;}
+thead th.th-name{text-align:left;}
+thead th.th-curr{background:#1a4a7a;}
+thead th.th-prev{background:#5a2a00;}
+thead th.th-count{background:#6b0f1a;}
+thead th.th-total{background:#4a0010;}
+tbody tr{border-bottom:1px solid #f0ebe0;transition:background .1s;}
+tbody tr:hover{background:#fef9ee;}
+tbody td{padding:7px 10px;text-align:center;font-family:'DM Mono',monospace;font-size:.76rem;white-space:nowrap;border-right:1px solid #f0ebe0;}
+td.td-sno{color:#aaa;font-size:.7rem;width:36px;}
+td.td-roll{color:#7a7060;font-size:.72rem;}
+td.td-name{text-align:left;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.82rem;min-width:170px;}
+
+/* Grade pills */
+.g{display:inline-block;padding:2px 6px;border-radius:3px;font-weight:600;font-size:.7rem;}
+.g-O{background:#e8f7ee;color:#1e6b3e;}.g-Ap{background:#e8f0fa;color:#1a4a7a;}
+.g-A{background:#eef3fc;color:#2a5a9a;}.g-Bp{background:#fef9ee;color:#a06010;}
+.g-B{background:#fefcf0;color:#b07030;}.g-C{background:#f8f8f8;color:#666;}
+.g-S{background:#e8f7ee;color:#1e6b3e;}
+.g-U{background:#c0392b;color:white;}.g-UA{background:#922b21;color:white;font-size:.68rem;}
+.g-prev-pass{background:#d5f0de;color:#1e6b3e;border:1px solid #a8d5b5;}
+.g-prev-U{background:#7b241c;color:white;}.g-prev-UA{background:#5b1512;color:white;}
+.g-empty{color:#ccc;}
+.cnt-u{color:var(--red);font-weight:700;}.cnt-ua{color:#922b21;font-weight:700;}
+.cnt-prev{color:var(--orange);font-weight:700;}
+.cnt-total-0{color:var(--green);font-weight:700;}
+.cnt-total-bad{color:var(--red);font-weight:800;font-size:.87rem;}
+.cnt-total-mid{color:#d4891a;font-weight:700;}
+.col-divider{border-left:2px solid #8b4513!important;}
+
+/* Stats */
+.stats-section{margin-top:28px;background:white;border:1px solid var(--rule);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
+.stats-header{background:var(--ink);color:var(--gold-lt);font-family:'Playfair Display',serif;font-size:1rem;padding:12px 20px;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:0;}
+.stat-cell{padding:13px 15px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.stat-cell .sc{font-family:'DM Mono',monospace;font-weight:600;font-size:.8rem;color:var(--ink);margin-bottom:6px;}
+.stat-row{display:flex;align-items:center;gap:5px;font-size:.7rem;margin-bottom:3px;}
+.stat-row .slbl{width:52px;color:#7a7060;}.stat-row .sbar{flex:1;height:5px;background:var(--rule);border-radius:3px;overflow:hidden;}
+.stat-row .sfill{height:100%;border-radius:3px;}.sf-pass{background:var(--green);}.sf-fail{background:var(--red);}.sf-ua{background:var(--orange);}
+.stat-row .sval{font-family:'DM Mono',monospace;font-size:.7rem;min-width:28px;text-align:right;}
+.arrear-dist{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--rule);}
+.ad-chip{background:var(--cream);border:1px solid var(--rule);border-radius:6px;padding:7px 13px;text-align:center;min-width:76px;}
+.ad-chip .adn{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;}
+.ad-chip .adl{font-size:.65rem;color:#7a7060;text-transform:uppercase;letter-spacing:.4px;}
+.ad-chip.clear .adn{color:var(--green);}.ad-chip.few .adn{color:var(--gold);}.ad-chip.many .adn{color:var(--red);}
+
+/* ══════════════════════════════════════
+   STUDENT PORTAL (Anna University style)
+══════════════════════════════════════ */
+#page-student{background:var(--au-bg);}
+
+.au-portal-header{
+  background:var(--au-navy);
+  padding:0;
+  border-bottom:4px solid var(--au-accent);
+}
+.au-portal-top{
+  display:flex;align-items:center;gap:20px;padding:14px 40px;
+  background:linear-gradient(135deg,#1a237e 0%,#283593 100%);
+}
+.au-logo-block{display:flex;align-items:center;gap:14px;}
+.au-emblem{width:56px;height:56px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.au-inst-name{color:white;}
+.au-inst-name h2{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;line-height:1.2;}
+.au-inst-name p{font-size:.68rem;opacity:.75;margin-top:2px;}
+.au-portal-title{margin-left:auto;text-align:right;color:white;}
+.au-portal-title h3{font-family:'DM Mono',monospace;font-size:.8rem;font-weight:500;opacity:.85;letter-spacing:1px;text-transform:uppercase;}
+.au-portal-title p{font-size:.7rem;opacity:.55;margin-top:2px;}
+
+.au-nav-bar{
+  background:var(--au-nav2);
+  display:flex;align-items:center;gap:0;
+  padding:0 40px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.au-nav-tab{
+  padding:10px 20px;color:rgba(255,255,255,.65);font-size:.78rem;font-weight:500;
+  cursor:pointer;border:none;background:none;border-bottom:3px solid transparent;
+  margin-bottom:0;letter-spacing:.3px;transition:all .15s;white-space:nowrap;
+}
+.au-nav-tab:hover{color:white;}
+.au-nav-tab.active{color:white;border-bottom-color:var(--gold-lt);font-weight:600;}
+
+/* Search panel */
+.au-search-panel{
+  max-width:860px;margin:40px auto;padding:0 24px;
+}
+.au-search-card{
+  background:var(--au-card);border-radius:12px;
+  box-shadow:0 4px 24px rgba(26,35,126,.12);
+  overflow:hidden;
+}
+.au-search-card-header{
+  background:var(--au-navy);color:white;
+  padding:16px 24px;
+  display:flex;align-items:center;gap:10px;
+}
+.au-search-card-header h3{font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;}
+.au-search-card-header .badge{background:var(--au-accent);font-size:.65rem;padding:2px 8px;border-radius:3px;letter-spacing:.5px;text-transform:uppercase;}
+.au-search-body{padding:28px 28px 24px;}
+
+.au-form-row{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:20px;}
+.au-form-group{flex:1;min-width:180px;}
+.au-form-group label{display:block;font-size:.75rem;font-weight:600;color:var(--au-navy);margin-bottom:6px;letter-spacing:.3px;text-transform:uppercase;}
+.au-form-group input{
+  width:100%;padding:10px 14px;
+  border:1.5px solid var(--au-line);border-radius:6px;
+  font-family:'DM Mono',monospace;font-size:.9rem;color:var(--ink);
+  outline:none;transition:border-color .15s;background:white;
+}
+.au-form-group input:focus{border-color:var(--au-navy);box-shadow:0 0 0 3px rgba(26,35,126,.08);}
+.au-form-group input::placeholder{color:#b0bec5;font-family:'DM Sans',sans-serif;font-size:.82rem;}
+
+.au-search-btn{
+  background:var(--au-navy);color:white;border:none;border-radius:6px;
+  padding:10px 28px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.85rem;
+  cursor:pointer;letter-spacing:.3px;transition:background .15s;white-space:nowrap;
+  height:40px;
+}
+.au-search-btn:hover{background:#283593;}
+
+.au-notice{
+  background:#e8eaf6;border-left:3px solid var(--au-navy);
+  padding:10px 14px;border-radius:4px;font-size:.78rem;color:#3949ab;
+  display:flex;align-items:flex-start;gap:8px;
+}
+.au-notice .ni{font-size:1rem;flex-shrink:0;margin-top:1px;}
+
+.au-no-data{display:none;text-align:center;padding:28px;color:#90a4ae;font-size:.85rem;}
+
+/* ── RESULT CARD (AU marksheet style) ── */
+#au-result-area{display:none;max-width:860px;margin:0 auto 40px;padding:0 24px;}
+
+.au-result-card{
+  background:var(--au-card);border-radius:12px;
+  box-shadow:0 4px 28px rgba(26,35,126,.14);
+  overflow:hidden;
+}
+
+/* Result header */
+.au-result-header{
+  background:linear-gradient(135deg,#1a237e 0%,#283593 100%);
+  padding:20px 28px;
+  display:flex;align-items:center;gap:18px;
+}
+.au-result-header .rh-emblem{width:52px;height:52px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.au-result-header .rh-info{color:white;flex:1;}
+.au-result-header .rh-info h2{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;}
+.au-result-header .rh-info p{font-size:.72rem;opacity:.75;margin-top:3px;}
+.au-result-header .rh-stamp{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);border-radius:6px;padding:8px 14px;text-align:center;color:white;flex-shrink:0;}
+.au-result-header .rh-stamp .rs-lbl{font-size:.62rem;opacity:.7;text-transform:uppercase;letter-spacing:.5px;}
+.au-result-header .rh-stamp .rs-val{font-family:'DM Mono',monospace;font-size:1rem;font-weight:600;margin-top:2px;}
+
+/* Student info band */
+.au-student-band{
+  background:#e8eaf6;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  border-bottom:1px solid var(--au-line);
+}
+.au-student-field{padding:12px 18px;border-right:1px solid var(--au-line);}
+.au-student-field:last-child{border-right:none;}
+.au-student-field .sf-lbl{font-size:.65rem;color:#5c6bc0;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.au-student-field .sf-val{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--ink);font-weight:500;}
+
+/* Section heading */
+.au-section-head{
+  background:#f5f5f5;border-bottom:1px solid var(--au-line);border-top:1px solid var(--au-line);
+  padding:8px 18px;
+  display:flex;align-items:center;gap:8px;
+}
+.au-section-head .sh-label{font-size:.72rem;font-weight:700;color:var(--au-navy);text-transform:uppercase;letter-spacing:.5px;}
+.au-section-head .sh-sub{font-size:.68rem;color:#7a7060;margin-left:auto;}
+
+/* Subject result rows */
+.au-subjects-table{width:100%;border-collapse:collapse;}
+.au-subjects-table thead th{
+  background:#e8eaf6;color:#3949ab;
+  font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  padding:9px 14px;text-align:left;border-bottom:2px solid var(--au-line);
+  white-space:nowrap;
+}
+.au-subjects-table thead th.right{text-align:right;}
+.au-subjects-table thead th.center{text-align:center;}
+.au-subjects-table tbody tr{border-bottom:1px solid #f0f0f0;transition:background .1s;}
+.au-subjects-table tbody tr:hover{background:#f8f9ff;}
+.au-subjects-table tbody td{padding:10px 14px;font-size:.82rem;vertical-align:middle;}
+.au-subjects-table tbody td.center{text-align:center;}
+.au-subjects-table tbody td.right{text-align:right;}
+
+.au-subj-code{font-family:'DM Mono',monospace;font-size:.75rem;color:#5c6bc0;font-weight:500;}
+.au-subj-name{font-weight:500;color:var(--ink);font-size:.82rem;}
+.au-subj-type{font-size:.65rem;color:#90a4ae;margin-top:2px;}
+
+/* Grade badges (AU style) */
+.au-grade{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:28px;border-radius:4px;
+  font-family:'DM Mono',monospace;font-weight:700;font-size:.82rem;
+}
+.aug-O  {background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;}
+.aug-Ap {background:#e3f2fd;color:#1565c0;border:1px solid #90caf9;}
+.aug-A  {background:#e8f0fb;color:#1976d2;border:1px solid #bbdefb;}
+.aug-Bp {background:#fff8e1;color:#f57f17;border:1px solid #ffe082;}
+.aug-B  {background:#fffde7;color:#f9a825;border:1px solid #fff176;}
+.aug-C  {background:#fafafa;color:#757575;border:1px solid #e0e0e0;}
+.aug-S  {background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;}
+.aug-U  {background:#ffebee;color:#c62828;border:1px solid #ef9a9a;font-size:.78rem;}
+.aug-UA {background:#fbe9e7;color:#bf360c;border:1px solid #ffab91;font-size:.72rem;}
+.aug-def{background:#fafafa;color:#9e9e9e;border:1px solid #e0e0e0;}
+
+/* Result status pill */
+.au-status-pass{display:inline-block;background:#e8f5e9;color:#2e7d32;border:1.5px solid #a5d6a7;border-radius:4px;padding:3px 12px;font-size:.72rem;font-weight:700;letter-spacing:.3px;}
+.au-status-fail{display:inline-block;background:#ffebee;color:#c62828;border:1.5px solid #ef9a9a;border-radius:4px;padding:3px 12px;font-size:.72rem;font-weight:700;letter-spacing:.3px;}
+.au-status-ua  {display:inline-block;background:#fbe9e7;color:#bf360c;border:1.5px solid #ffab91;border-radius:4px;padding:3px 12px;font-size:.72rem;font-weight:700;letter-spacing:.3px;}
+
+/* Summary footer */
+.au-result-footer{
+  background:#e8eaf6;
+  padding:16px 20px;
+  display:flex;gap:0;
+  flex-wrap:wrap;
+  border-top:2px solid var(--au-line);
+}
+.au-footer-stat{flex:1;min-width:120px;text-align:center;padding:10px 14px;border-right:1px solid var(--au-line);}
+.au-footer-stat:last-child{border-right:none;}
+.au-footer-stat .fs-val{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--au-navy);line-height:1;}
+.au-footer-stat .fs-lbl{font-size:.65rem;color:#5c6bc0;text-transform:uppercase;letter-spacing:.4px;margin-top:4px;}
+
+/* ARREAR section in student view */
+.au-arrear-section{background:#fff8f5;}
+.au-arrear-row td{font-size:.8rem;}
+.au-arrear-badge{
+  display:inline-block;background:#fff3e0;color:#e65100;border:1px solid #ffcc80;
+  border-radius:3px;padding:1px 7px;font-size:.65rem;font-weight:700;letter-spacing:.3px;
+  text-transform:uppercase;vertical-align:middle;margin-left:6px;
+}
+
+/* Overall result banner */
+.au-result-banner{
+  margin:16px 20px;border-radius:8px;padding:14px 20px;
+  display:flex;align-items:center;gap:14px;
+}
+.au-result-banner.pass{background:#e8f5e9;border:1.5px solid #a5d6a7;}
+.au-result-banner.fail{background:#ffebee;border:1.5px solid #ef9a9a;}
+.au-result-banner .rb-icon{font-size:2rem;flex-shrink:0;}
+.au-result-banner .rb-text h4{font-size:1rem;font-weight:700;margin-bottom:2px;}
+.au-result-banner.pass .rb-text h4{color:#2e7d32;}
+.au-result-banner.fail .rb-text h4{color:#c62828;}
+.au-result-banner .rb-text p{font-size:.78rem;color:#7a7060;}
+.au-result-banner .rb-pill{margin-left:auto;padding:8px 18px;border-radius:6px;font-weight:700;font-size:1rem;font-family:'DM Mono',monospace;}
+.au-result-banner.pass .rb-pill{background:#2e7d32;color:white;}
+.au-result-banner.fail .rb-pill{background:#c62828;color:white;}
+
+/* Print button */
+.au-action-bar{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--au-line);background:#fafafa;}
+.au-print-btn{background:var(--au-navy);color:white;border:none;border-radius:6px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.82rem;cursor:pointer;letter-spacing:.3px;transition:background .15s;}
+.au-print-btn:hover{background:#283593;}
+.au-download-btn{background:var(--au-accent);color:white;border:none;border-radius:6px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.82rem;cursor:pointer;letter-spacing:.3px;}
+
+/* ── REQUIRES UPLOAD NOTICE ── */
+.au-need-upload{
+  max-width:520px;margin:60px auto;padding:0 24px;text-align:center;
+}
+.au-need-upload .nu-icon{font-size:3.5rem;margin-bottom:16px;}
+.au-need-upload h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--au-navy);margin-bottom:8px;}
+.au-need-upload p{color:#7a7060;font-size:.85rem;line-height:1.6;}
+.au-need-upload .go-btn{display:inline-block;margin-top:16px;background:var(--au-navy);color:white;padding:10px 28px;border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer;border:none;}
+
+/* Toast */
+#toast{position:fixed;bottom:28px;right:28px;background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:8px;font-size:.82rem;font-weight:500;box-shadow:var(--shadow-lg);transform:translateY(80px);opacity:0;transition:transform .25s,opacity .25s;z-index:9999;border-left:3px solid var(--gold);}
+#toast.show{transform:translateY(0);opacity:1;}
+.empty{text-align:center;padding:40px;color:#aaa;font-size:.85rem;}
+
+@media print{
+  header,.hdr-nav,.au-portal-header,.au-nav-bar,.au-search-panel,.au-action-bar,#toast{display:none!important;}
+  #au-result-area{padding:0;margin:0;max-width:100%;}
+  .au-result-card{box-shadow:none;border-radius:0;}
+}
+@media(max-width:700px){
+  header{flex-direction:column;align-items:flex-start;padding:16px;}
+  .staff-main{padding:16px;}
+  .filter-bar input{width:100%;}
+  .au-portal-top{padding:14px 16px;}
+  .au-search-panel,#au-result-area{padding:0 12px;}
+  .au-form-row{flex-direction:column;}
+  .au-result-header{flex-direction:column;align-items:flex-start;}
+  .au-student-band{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MAIN HEADER ══ -->
+<header>
+  <div class="hdr-left">
+    <div class="hdr-logo">⚡</div>
+    <div class="hdr-title">
+      <h1>EEE Result Portal</h1>
+      <p>Mangayarkarasi College of Engineering &mdash; B.E. Electrical &amp; Electronics Engineering</p>
+    </div>
+  </div>
+  <nav class="hdr-nav">
+    <button class="hdr-nav-btn active" onclick="showPage('staff')" id="nav-staff">
+      <span class="nav-icon">🗂</span> Staff Dashboard
+    </button>
+    <button class="hdr-nav-btn" onclick="showPage('student')" id="nav-student">
+      <span class="nav-icon">🎓</span> Student Result
+    </button>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════
+     PAGE 1 : STAFF DASHBOARD
+══════════════════════════════════════ -->
+<div id="page-staff" class="page active">
+<div class="staff-main">
+
+  <!-- Upload Zone -->
+  <div id="upload-section" onclick="document.getElementById('file-input').click()">
+    <span class="upload-icon">📄</span>
+    <h2>Upload Result Word Document</h2>
+    <p>Drag &amp; drop your <strong>.docx</strong> result file, or click to browse</p>
+    <p style="margin-top:6px;font-size:.75rem;">Processed entirely in your browser — nothing leaves your device.</p>
+    <span class="upload-btn" onclick="event.stopPropagation();document.getElementById('file-input').click()">Choose File</span>
+    <input type="file" id="file-input" accept=".docx" onchange="handleFile(this.files[0])">
+  </div>
+
+  <!-- Progress -->
+  <div id="progress-wrap">
+    <div id="progress-text">Reading file…</div>
+    <div class="progress-bar-outer"><div class="progress-bar-inner" id="pbar"></div></div>
+  </div>
+
+  <!-- Results -->
+  <div id="summary-section">
+    <div class="summary-strip" id="summary-cards"></div>
+    <div class="export-bar">
+      <h3>Results by Year / Batch</h3>
+      <button class="btn btn-gold" onclick="exportExcel()">⬇ Download Excel</button>
+      <button class="btn btn-primary" onclick="exportDeployableHTML()" title="Generate a standalone HTML file with data pre-loaded — upload this to GitHub Pages so students can search results directly">🚀 Export for GitHub Pages</button>
+      <button class="btn btn-outline" onclick="resetTool()">↩ New File</button>
+    </div>
+    <div class="tab-bar" id="tab-bar"></div>
+    <div class="filter-bar">
+      <span class="filter-label">Filter:</span>
+      <input type="text" id="search-box" placeholder="Search name or roll number…" oninput="renderTable()">
+      <select id="arrear-filter" onchange="renderTable()">
+        <option value="">All Students</option>
+        <option value="with">Has Arrears</option>
+        <option value="clear">All Clear</option>
+        <option value="ua">Has UA (Absent)</option>
+        <option value="prev">Has Previous Arrears</option>
+      </select>
+      <span id="filter-count" style="font-size:.78rem;color:#7a7060;margin-left:auto;"></span>
+    </div>
+    <div class="table-wrap" id="table-wrap"></div>
+    <div class="stats-section" id="stats-section">
+      <div class="stats-header">📊 Arrear Distribution &amp; Subject-wise Analysis</div>
+      <div class="arrear-dist" id="arrear-dist"></div>
+      <div class="stats-grid" id="stats-grid"></div>
+    </div>
+  </div>
+
+</div><!-- /staff-main -->
+</div><!-- /page-staff -->
+
+<!-- ══════════════════════════════════════
+     PAGE 2 : STUDENT RESULT PORTAL
+══════════════════════════════════════ -->
+<div id="page-student" class="page">
+
+  <!-- AU-style portal header -->
+  <div class="au-portal-header">
+    <div class="au-portal-top">
+      <div class="au-logo-block">
+        <div class="au-emblem">🏛</div>
+        <div class="au-inst-name">
+          <h2>Mangayarkarasi College of Engineering</h2>
+          <p>Affiliated to Anna University, Chennai &mdash; Inst. Code: 9238</p>
+        </div>
+      </div>
+      <div class="au-portal-title">
+        <h3>Controller of Examinations</h3>
+        <p>Result Publication Portal &mdash; Nov/Dec 2025</p>
+      </div>
+    </div>
+    <div class="au-nav-bar">
+      <button class="au-nav-tab active">📋 Semester Result</button>
+    </div>
+  </div>
+
+  <!-- Needs upload check -->
+  <div id="au-need-upload" class="au-need-upload" style="display:none">
+    <div class="nu-icon">📂</div>
+    <h3>Result Data Not Available</h3>
+    <p>If you are a <strong>staff member</strong>, go to the Staff Dashboard tab, upload the result <strong>.docx</strong> file, and then click <em>"🚀 Export for GitHub Pages"</em> to generate the deployable file.</p>
+    <p style="margin-top:10px;font-size:.8rem;color:#9a8060;">If you are a student and see this message, please contact your department — the result file may not have been published yet.</p>
+    <button class="go-btn" onclick="showPage('staff')">Go to Staff Dashboard →</button>
+  </div>
+
+  <!-- Search panel -->
+  <div class="au-search-panel" id="au-search-panel" style="display:none">
+    <div class="au-search-card">
+      <div class="au-search-card-header">
+        <h3>📋 Semester Examination Result</h3>
+        <span class="badge">Nov / Dec 2025</span>
+      </div>
+      <div class="au-search-body">
+        <div class="au-form-row">
+          <div class="au-form-group">
+            <label>Register Number</label>
+            <input type="text" id="au-roll" placeholder="e.g. 923824105001" maxlength="12" oninput="this.value=this.value.replace(/\D/g,'')">
+          </div>
+          <button class="au-search-btn" onclick="searchStudent()">Get Result</button>
+        </div>
+        <div class="au-notice">
+          <span class="ni">ℹ</span>
+          <span>Enter your 12-digit Register Number. Results displayed are from the uploaded document only.</span>
+        </div>
+        <div class="au-no-data" id="au-no-data">
+          ❌ No result found for this Register Number. Please check and try again.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div id="au-result-area">
+    <div class="au-result-card" id="au-result-card"></div>
+  </div>
+
+</div><!-- /page-student -->
+
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════
+//  CONSTANTS & STATE
+// ══════════════════════════════════════
+const VALID_GRADES = new Set(['O','A+','A','B+','B','C','U','UA','S','C+','RA','W','SA','AB']);
+
+const SHEET_DEFS = [
+  { name:'I YEAR',        batch:'25', curr:['CS25C01','CY25C01','EE25C03','EN25C01','MA25C01','ME25C04','PH25C01','UC25A01','UC25A02','UC25H01'], teachers:[] },
+  { name:'II YEAR',       batch:'24', curr:['CS3353','CS3362','EC3301','EC3311','EE3301','EE3302','EE3303','EE3311','GE3361','MA3303','NM1023'],  teachers:['CPDS-','LAB-','EDC-SGP','EDC-BAS','EMF-NMV','DLC-SM','EM-1-VK','EMLAB-GTS','PD-BAS','PCF-','NM-'] },
+  { name:'III YEAR',      batch:'23', curr:['EE3004','EE3009','EE3014','EE3501','EE3503','EE3511','EE3512','EE3591','MX3084','NM1115'],           teachers:['HVDC-GTS','SEM-GS','PERS','PSA-SP','CS-SR','PEL-SR','CILAB-VK','PE-JK&VK','IS-BAS','NM-'] },
+  { name:'IV YEAR',       batch:'22', curr:['CME365','EE3701','GE3752','GE3791','NM1103','OCS352','OMR353'],                                       teachers:[] },
+  { name:'ARREAR (2021)', batch:'21', curr:[], teachers:[] },
+  { name:'ARREAR (2020)', batch:'20', curr:[], teachers:[] },
+  { name:'ARREAR (2019)', batch:'19', curr:[], teachers:[] },
+];
+
+// Grade → credit points (Anna University scale)
+const GRADE_POINTS = { 'O':10, 'A+':9, 'A':8, 'B+':7, 'B':6, 'C':5, 'S':10, 'U':0, 'UA':0, 'C+':5 };
+
+// Subject name lookup (expand as needed)
+const SUBJECT_NAMES = {
+  'CS3353':'Computer Programming & Data Structures','CS3362':'Data Structures Laboratory',
+  'EC3301':'Electronic Devices & Circuits','EC3311':'EDC Laboratory',
+  'EE3301':'Electromagnetic Fields','EE3302':'Digital Logic Circuits',
+  'EE3303':'Electrical Machines - I','EE3311':'EE Machines Lab',
+  'GE3361':'Professional Development','MA3303':'Probability & Complex Functions',
+  'NM1023':'Numerical Methods','EE3004':'High Voltage DC Transmission',
+  'EE3009':'Smart Energy Management','EE3014':'Principles of EE Systems',
+  'EE3501':'Power System Analysis','EE3503':'Control Systems',
+  'EE3511':'Power Electronics Lab','EE3512':'Control & Instrumentation Lab',
+  'EE3591':'Power Engineering Lab','MX3084':'Industrial Safety',
+  'NM1115':'Numerical Methods','CME365':'Construction Management',
+  'EE3701':'Power Quality','GE3752':'Professional Ethics',
+  'GE3791':'Project Work','NM1103':'Numerical Methods',
+  'OCS352':'Open Course Subject','OMR353':'Operations Management',
+  'CS25C01':'Computational Thinking','CY25C01':'Engineering Chemistry',
+  'EE25C03':'Basic Electrical & Electronics','EN25C01':'English for Engineers',
+  'MA25C01':'Engineering Mathematics - I','ME25C04':'Engineering Mechanics',
+  'PH25C01':'Engineering Physics','UC25A01':'Universal Human Values',
+  'UC25A02':'Environmental Science','UC25H01':'Heritage of Tamils',
+};
+
+// Credits per subject (default 3, labs = 2)
+function getCredits(code) {
+  if (code.includes('311') || code.includes('361') || code.includes('362') ||
+      code.includes('Lab') || code.includes('LAB') || code.includes('lab') ||
+      code.endsWith('11') || code.endsWith('12') || code.endsWith('13') ||
+      code === 'GE3791') return 2;
+  return 3;
+}
+
+let allStudents = {};
+let sheetData   = [];
+let activeTab   = 0;
+
+// ══════════════════════════════════════
+//  PAGE NAVIGATION
+// ══════════════════════════════════════
+function showPage(p) {
+  document.getElementById('page-staff').classList.toggle('active', p==='staff');
+  document.getElementById('page-student').classList.toggle('active', p==='student');
+  document.getElementById('nav-staff').classList.toggle('active', p==='staff');
+  document.getElementById('nav-student').classList.toggle('active', p==='student');
+
+  if (p === 'student') {
+    const hasData = Object.keys(allStudents).length > 0;
+    document.getElementById('au-need-upload').style.display = hasData ? 'none' : 'block';
+    document.getElementById('au-search-panel').style.display = hasData ? 'block' : 'none';
+    document.getElementById('au-result-area').style.display = 'none';
+  }
+}
+
+// ══════════════════════════════════════
+//  DRAG & DROP
+// ══════════════════════════════════════
+const uploadSec = document.getElementById('upload-section');
+uploadSec.addEventListener('dragover', e => { e.preventDefault(); uploadSec.classList.add('dragover'); });
+uploadSec.addEventListener('dragleave', () => uploadSec.classList.remove('dragover'));
+uploadSec.addEventListener('drop', e => { e.preventDefault(); uploadSec.classList.remove('dragover'); const f = e.dataTransfer.files[0]; if(f) handleFile(f); });
+
+// ══════════════════════════════════════
+//  FILE HANDLER
+// ══════════════════════════════════════
+async function handleFile(file) {
+  if (!file || !file.name.endsWith('.docx')) { toast('Please upload a .docx Word file'); return; }
+  setProgress(5,'Reading file…'); showProgress(true);
+  try {
+    const ab = await file.arrayBuffer();
+    setProgress(20,'Extracting document…');
+    const zip = await JSZip.loadAsync(ab);
+    const xmlStr = await zip.file('word/document.xml').async('string');
+    setProgress(55,'Parsing student tables…');
+    allStudents = parseDocx(xmlStr);
+    setProgress(85,'Building result sheets…');
+    buildSheetData();
+    setProgress(100,'Done!');
+    setTimeout(() => { showProgress(false); showResults(); }, 350);
+  } catch(err) {
+    console.error(err);
+    showProgress(false);
+    toast('Error: ' + err.message);
+  }
+}
+function setProgress(p,m){ document.getElementById('pbar').style.width=p+'%'; document.getElementById('progress-text').textContent=m; }
+function showProgress(v){ document.getElementById('progress-wrap').style.display=v?'block':'none'; }
+
+// ══════════════════════════════════════
+//  DOCX PARSER
+// ══════════════════════════════════════
+function parseDocx(xmlStr) {
+  const doc = new DOMParser().parseFromString(xmlStr,'application/xml');
+  const NS  = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+  const students = {};
+  const tables = doc.getElementsByTagNameNS(NS,'tbl');
+  let currentSubjectCodes = [];
+
+  for (let tIdx=0; tIdx<tables.length; tIdx++) {
+    const rows = tables[tIdx].getElementsByTagNameNS(NS,'tr');
+    if (rows.length < 2) continue;
+
+    const cellText = cell => Array.from(cell.getElementsByTagNameNS(NS,'t')).map(r=>r.textContent).join('').trim().replace(/\s+/g,' ');
+    const row0texts = Array.from(rows[0].getElementsByTagNameNS(NS,'tc')).map(cellText);
+    const isHeader = row0texts[1] && row0texts[1].includes('Subject Code');
+    const dataStart = isHeader ? 2 : 0;
+    if (isHeader) currentSubjectCodes = row0texts.slice(2).map(s=>s.replace(/\s+/g,''));
+
+    for (let rIdx=dataStart; rIdx<rows.length; rIdx++) {
+      const cells = Array.from(rows[rIdx].getElementsByTagNameNS(NS,'tc'));
+      if (cells.length<2) continue;
+      const roll = cellText(cells[0]).replace(/\s/g,'');
+      const name = cellText(cells[1]).replace(/\s+/g,' ').trim();
+      if (!roll || !/^\d{12}$/.test(roll)) continue;
+      if (!students[roll]) students[roll] = {name, subjects:{}};
+      currentSubjectCodes.forEach((code,j) => {
+        if (!code) return;
+        const cell = cells[j+2]; if (!cell) return;
+        const grade = cellText(cell).trim();
+        if (grade && VALID_GRADES.has(grade)) students[roll].subjects[code] = grade;
+      });
+    }
+  }
+  return students;
+}
+
+// ══════════════════════════════════════
+//  BUILD SHEET DATA
+// ══════════════════════════════════════
+function buildSheetData() {
+  sheetData = [];
+  const batchSubjects = {};
+  for (const [roll,d] of Object.entries(allStudents)) {
+    const b = roll.substring(4,6);
+    if (!batchSubjects[b]) batchSubjects[b] = new Set();
+    for (const code of Object.keys(d.subjects)) batchSubjects[b].add(code);
+  }
+  for (const sdef of SHEET_DEFS) {
+    const {name, batch, teachers} = sdef;
+    let currCodes = sdef.curr.slice();
+    if (!currCodes.length && batchSubjects[batch]) currCodes = Array.from(batchSubjects[batch]).sort();
+    const students = Object.entries(allStudents).filter(([r])=>r.substring(4,6)===batch).sort(([a],[b])=>a.localeCompare(b));
+    if (!students.length) continue;
+    const currSet = new Set(currCodes);
+    const prevSet = new Set();
+    for (const [,d] of students)
+      for (const [c,g] of Object.entries(d.subjects))
+        if (!currSet.has(c) && (g==='U'||g==='UA')) prevSet.add(c);
+    sheetData.push({name, batch, currCodes, prevCodes:Array.from(prevSet).sort(), teachers, students});
+  }
+}
+
+// ══════════════════════════════════════
+//  STAFF RESULTS RENDER
+// ══════════════════════════════════════
+function showResults() {
+  document.getElementById('upload-section').style.display = 'none';
+  document.getElementById('summary-section').style.display = 'block';
+  buildSummaryCards(); buildTabs(); renderTable();
+  toast('✓ ' + Object.keys(allStudents).length + ' students loaded from document');
+}
+
+function buildSummaryCards() {
+  const total = Object.keys(allStudents).length;
+  const withArr = Object.values(allStudents).filter(d=>Object.values(d.subjects).some(g=>g==='U'||g==='UA')).length;
+  const clear = total - withArr;
+  const uaOnly = Object.values(allStudents).filter(d=>Object.values(d.subjects).some(g=>g==='UA')).length;
+  document.getElementById('summary-cards').innerHTML = `
+    <div class="sum-card gold"><div class="num">${total}</div><div class="lbl">Total Students</div></div>
+    <div class="sum-card green"><div class="num">${clear}</div><div class="lbl">All Clear</div></div>
+    <div class="sum-card red"><div class="num">${withArr}</div><div class="lbl">With Arrears</div></div>
+    <div class="sum-card red"><div class="num">${uaOnly}</div><div class="lbl">Has UA</div></div>
+    <div class="sum-card"><div class="num">${sheetData.length}</div><div class="lbl">Year Groups</div></div>`;
+}
+
+function buildTabs() {
+  document.getElementById('tab-bar').innerHTML = sheetData.map((sd,i)=>`
+    <button class="tab-btn ${i===activeTab?'active':''}" onclick="switchTab(${i})">
+      ${sd.name}<span class="tab-badge">${sd.students.length}</span>
+    </button>`).join('');
+}
+function switchTab(i) { activeTab=i; buildTabs(); document.getElementById('search-box').value=''; document.getElementById('arrear-filter').value=''; renderTable(); }
+
+function renderTable() {
+  if (!sheetData.length) return;
+  const sd = sheetData[activeTab];
+  const q  = document.getElementById('search-box').value.trim().toLowerCase();
+  const af = document.getElementById('arrear-filter').value;
+  const {currCodes, prevCodes, teachers, students} = sd;
+  const hasPrev = prevCodes.length > 0;
+
+  const filtered = students.filter(([roll,d]) => {
+    if (q && !d.name.toLowerCase().includes(q) && !roll.includes(q)) return false;
+    const uC  = currCodes.reduce((n,c)=>n+(d.subjects[c]==='U'?1:0),0);
+    const uaC = currCodes.reduce((n,c)=>n+(d.subjects[c]==='UA'?1:0),0);
+    const uP  = prevCodes.reduce((n,c)=>n+(d.subjects[c]==='U'?1:0),0);
+    const uaP = prevCodes.reduce((n,c)=>n+(d.subjects[c]==='UA'?1:0),0);
+    const prev = uP+uaP, total = uC+uaC+prev;
+    if (af==='with'  && total===0) return false;
+    if (af==='clear' && total>0)   return false;
+    if (af==='ua'    && uaC+uaP===0) return false;
+    if (af==='prev'  && prev===0)  return false;
+    return true;
+  });
+
+  document.getElementById('filter-count').textContent = `Showing ${filtered.length} of ${students.length} students`;
+
+  const thead = `<tr>
+    <th style="text-align:center">S.No</th><th class="th-name">Roll Number</th><th class="th-name">Student Name</th>
+    ${currCodes.map((c,i)=>`<th class="th-curr">${c}<br><span style="font-size:.58rem;opacity:.7">${teachers[i]||''}</span></th>`).join('')}
+    ${hasPrev ? prevCodes.map(c=>`<th class="th-prev">${c}</th>`).join('') : ''}
+    <th class="th-count ${hasPrev?'col-divider':''}">U<br><small>Curr</small></th>
+    <th class="th-count">UA<br><small>Curr</small></th>
+    ${hasPrev?`<th class="th-count">PREV<br><small>Arrear</small></th>`:''}
+    <th class="th-total">TOTAL<br><small>ARREARS</small></th>
+  </tr>`;
+
+  let tbody = filtered.length ? '' : `<tr><td colspan="99" class="empty">No students match the current filter.</td></tr>`;
+  filtered.forEach(([roll,d],idx) => {
+    const uC  = currCodes.reduce((n,c)=>n+(d.subjects[c]==='U'?1:0),0);
+    const uaC = currCodes.reduce((n,c)=>n+(d.subjects[c]==='UA'?1:0),0);
+    const uP  = prevCodes.reduce((n,c)=>n+(d.subjects[c]==='U'?1:0),0);
+    const uaP = prevCodes.reduce((n,c)=>n+(d.subjects[c]==='UA'?1:0),0);
+    const prev = uP+uaP, total = uC+uaC+prev;
+    const totCls = total===0?'cnt-total-0':total<=2?'cnt-total-mid':'cnt-total-bad';
+    tbody += `<tr>
+      <td class="td-sno">${idx+1}</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('${roll}')" title="View student result">${roll}</td>
+      <td class="td-name">${d.name}</td>
+      ${currCodes.map(c=>{ const g=d.subjects[c]||''; return `<td>${g?gradeHtml(g,false):'<span class="g-empty">—</span>'}</td>`; }).join('')}
+      ${hasPrev?prevCodes.map(c=>{ const g=d.subjects[c]||''; return `<td>${g?gradeHtml(g,true):'<span class="g-empty">—</span>'}</td>`; }).join(''):''}
+      <td class="${hasPrev?'col-divider':''} ${uC>0?'cnt-u':''}">${uC||'—'}</td>
+      <td class="${uaC>0?'cnt-ua':''}">${uaC||'—'}</td>
+      ${hasPrev?`<td class="${prev>0?'cnt-prev':''}">${prev||'—'}</td>`:''}
+      <td class="${totCls}">${total===0?'✓':total}</td>
+    </tr>`;
+  });
+
+  document.getElementById('table-wrap').innerHTML = `<table><thead>${thead}</thead><tbody>${tbody}</tbody></table>`;
+  buildStats(sd, students);
+}
+
+function gradeHtml(g, isPrev) {
+  if (isPrev) {
+    if (g==='U') return `<span class="g g-prev-U">U</span>`;
+    if (g==='UA') return `<span class="g g-prev-UA">UA</span>`;
+    return `<span class="g g-prev-pass">${g}</span>`;
+  }
+  const m={'O':'g-O','A+':'g-Ap','A':'g-A','B+':'g-Bp','B':'g-B','C':'g-C','S':'g-S','U':'g-U','UA':'g-UA'};
+  return `<span class="g ${m[g]||'g-C'}">${g}</span>`;
+}
+
+function buildStats(sd, students) {
+  const {currCodes} = sd;
+  const n = students.length;
+  const dist = {0:0,1:0,2:0,3:0,4:0,5:0,'6+':0};
+  for (const [,d] of students) {
+    let t=0; Object.values(d.subjects).forEach(g=>{if(g==='U'||g==='UA')t++;});
+    if (t===0) dist[0]++; else if(t<=5) dist[t]++; else dist['6+']++;
+  }
+  document.getElementById('arrear-dist').innerHTML = `
+    <div class="ad-chip clear"><div class="adn">${dist[0]}</div><div class="adl">All Clear</div></div>
+    ${[1,2,3,4,5,'6+'].map(k=>`<div class="ad-chip ${typeof k==='number'&&k<=2?'few':'many'}"><div class="adn">${dist[k]}</div><div class="adl">${k} Arrear${k!==1?'s':''}</div></div>`).join('')}
+    <div class="ad-chip" style="background:var(--red-bg);border-color:#e8b4b0">
+      <div class="adn" style="color:var(--red);font-size:1rem;padding-top:6px">${n>0?((dist[0]/n)*100).toFixed(1):0}%</div>
+      <div class="adl">Pass Rate</div></div>`;
+
+  document.getElementById('stats-grid').innerHTML = currCodes.map(code => {
+    let fail=0,ua=0,pass=0,app=0;
+    for (const [,d] of students) { const g=d.subjects[code]; if(!g)continue; app++; if(g==='U')fail++; else if(g==='UA')ua++; else pass++; }
+    const pct=app>0?Math.round((pass/app)*100):0, fw=app>0?Math.round((fail/app)*100):0, uw=app>0?Math.round((ua/app)*100):0;
+    return `<div class="stat-cell"><div class="sc">${code}</div>
+      <div class="stat-row"><span class="slbl">Pass ${pct}%</span><div class="sbar"><div class="sfill sf-pass" style="width:${pct}%"></div></div><span class="sval">${pass}</span></div>
+      <div class="stat-row"><span class="slbl">Fail ${fw}%</span><div class="sbar"><div class="sfill sf-fail" style="width:${fw}%"></div></div><span class="sval">${fail}</span></div>
+      <div class="stat-row"><span class="slbl">UA ${uw}%</span><div class="sbar"><div class="sfill sf-ua" style="width:${uw}%"></div></div><span class="sval">${ua}</span></div></div>`;
+  }).join('') || '<div style="padding:20px;color:#aaa;grid-column:1/-1">No subject stats available.</div>';
+}
+
+// Quick lookup from staff table click
+function quickLookup(roll) {
+  showPage('student');
+  document.getElementById('au-roll').value = roll;
+  searchStudent();
+}
+
+// ══════════════════════════════════════
+//  STUDENT RESULT SEARCH
+// ══════════════════════════════════════
+function searchStudent() {
+  const roll = document.getElementById('au-roll').value.trim();
+  document.getElementById('au-no-data').style.display = 'none';
+  document.getElementById('au-result-area').style.display = 'none';
+
+  if (!roll || roll.length < 12) { toast('Enter a 12-digit register number'); return; }
+  if (!allStudents[roll]) {
+    document.getElementById('au-no-data').style.display = 'block';
+    return;
+  }
+  renderStudentResult(roll);
+}
+
+// ══════════════════════════════════════
+//  STUDENT RESULT CARD RENDER
+// ══════════════════════════════════════
+function renderStudentResult(roll) {
+  const d = allStudents[roll];
+  if (!d) return;
+
+  // Determine which sheet def applies
+  const batch = roll.substring(4,6);
+  const sdef  = SHEET_DEFS.find(s => s.batch === batch) || {};
+  const currCodes = (sdef.curr && sdef.curr.length) ? sdef.curr
+                  : Object.keys(d.subjects).filter(c => c in d.subjects);
+
+  const currSet = new Set(currCodes);
+
+  // Separate current vs previous
+  const currSubjects = currCodes.map(c => ({code:c, grade:d.subjects[c]||'', isCurr:true}));
+  const prevSubjects = Object.entries(d.subjects)
+    .filter(([c,g]) => !currSet.has(c) && (g==='U' || g==='UA'))
+    .map(([c,g]) => ({code:c, grade:g, isCurr:false}));
+
+  // Counts
+  const uCurr  = currSubjects.filter(s=>s.grade==='U').length;
+  const uaCurr = currSubjects.filter(s=>s.grade==='UA').length;
+  const uPrev  = prevSubjects.filter(s=>s.grade==='U').length;
+  const uaPrev = prevSubjects.filter(s=>s.grade==='UA').length;
+  const totalArrears = uCurr + uaCurr + uPrev + uaPrev;
+
+  // GPA calc (current semester only, excluding U/UA)
+  let totalPts=0, totalCr=0;
+  currSubjects.forEach(s => {
+    if (s.grade && s.grade!=='U' && s.grade!=='UA') {
+      const cr = getCredits(s.code);
+      const pt = GRADE_POINTS[s.grade] || 0;
+      totalPts += pt * cr; totalCr += cr;
+    }
+  });
+  const gpa = totalCr > 0 ? (totalPts / totalCr).toFixed(2) : '—';
+
+  const semLabel = {
+    '25':'Semester I','24':'Semester III','23':'Semester V','22':'Semester VII',
+    '21':'Arrear Examination','20':'Arrear Examination','19':'Arrear Examination'
+  }[batch] || 'Semester Examination';
+
+  const isPass = totalArrears === 0;
+
+  function auGrade(g) {
+    const m={'O':'aug-O','A+':'aug-Ap','A':'aug-A','B+':'aug-Bp','B':'aug-B','C':'aug-C','S':'aug-S','U':'aug-U','UA':'aug-UA'};
+    return `<span class="au-grade ${m[g]||'aug-def'}">${g||'—'}</span>`;
+  }
+  function statusPill(g) {
+    if (!g) return '';
+    if (g==='U')  return `<span class="au-status-fail">FAIL</span>`;
+    if (g==='UA') return `<span class="au-status-ua">ABSENT</span>`;
+    return `<span class="au-status-pass">PASS</span>`;
+  }
+
+  const currRows = currSubjects.map((s,i) => {
+    const credits = getCredits(s.code);
+    return `<tr>
+      <td>${i+1}</td>
+      <td><div class="au-subj-code">${s.code}</div></td>
+      <td class="center">${auGrade(s.grade)}</td>
+      <td class="center">${statusPill(s.grade)}</td>
+    </tr>`;
+  }).join('');
+
+  const prevRows = prevSubjects.length ? prevSubjects.map((s,i) => {
+    return `<tr class="au-arrear-row">
+      <td>${i+1}</td>
+      <td><div class="au-subj-code">${s.code}<span class="au-arrear-badge">ARREAR</span></div></td>
+      <td class="center">${auGrade(s.grade)}</td>
+      <td class="center">${statusPill(s.grade)}</td>
+    </tr>`;
+  }).join('') : '';
+
+  const html = `
+    <!-- Header -->
+    <div class="au-result-header">
+      <div class="rh-emblem">🏛</div>
+      <div class="rh-info">
+        <h2>Mangayarkarasi College of Engineering</h2>
+        <p>Affiliated to Anna University, Chennai &mdash; B.E. Electrical &amp; Electronics Engineering &mdash; Inst. Code: 9238</p>
+      </div>
+      <div class="rh-stamp">
+        <div class="rs-lbl">Exam</div>
+        <div class="rs-val">Nov/Dec 2025</div>
+      </div>
+    </div>
+
+    <!-- Student info band -->
+    <div class="au-student-band">
+      <div class="au-student-field"><div class="sf-lbl">Register Number</div><div class="sf-val">${roll}</div></div>
+      <div class="au-student-field"><div class="sf-lbl">Student Name</div><div class="sf-val">${d.name}</div></div>
+      <div class="au-student-field"><div class="sf-lbl">Semester</div><div class="sf-val">${semLabel}</div></div>
+      <div class="au-student-field"><div class="sf-lbl">Department</div><div class="sf-val">EEE</div></div>
+      <div class="au-student-field"><div class="sf-lbl">Regulation</div><div class="sf-val">2021</div></div>
+      <div class="au-student-field"><div class="sf-lbl">Date of Publication</div><div class="sf-val">13-03-2026</div></div>
+    </div>
+
+    <!-- Overall result banner -->
+    <div class="au-result-banner ${isPass?'pass':'fail'}">
+      <div class="rb-icon">${isPass?'✅':'❌'}</div>
+      <div class="rb-text">
+        <h4>${isPass ? 'Result: PASSED' : 'Result: FAILED / ARREAR'}</h4>
+        <p>${isPass ? 'Congratulations! All subjects cleared in this examination.' : `${totalArrears} arrear subject${totalArrears>1?'s':''} pending (${uCurr+uaCurr} this semester${prevSubjects.length?', '+(uPrev+uaPrev)+' from previous semesters':''})`}</p>
+      </div>
+      <div class="rb-pill">GPA: ${gpa}</div>
+    </div>
+
+    <!-- Current semester subjects -->
+    <div class="au-section-head">
+      <span class="sh-label">📋 ${semLabel} — Subject-wise Result</span>
+      <span class="sh-sub">${currSubjects.length} subjects</span>
+    </div>
+    <table class="au-subjects-table">
+      <thead><tr>
+        <th style="width:40px">S.No</th>
+        <th style="width:130px">Subject Code</th>
+        <th class="center" style="width:80px">Grade</th>
+        <th class="center" style="width:90px">Status</th>
+      </tr></thead>
+      <tbody>${currRows}</tbody>
+    </table>
+
+    <!-- Previous arrears (if any) -->
+    ${prevSubjects.length ? `
+    <div class="au-section-head au-arrear-section">
+      <span class="sh-label" style="color:var(--au-accent)">⚠ Previous Semester Arrears (Pending)</span>
+      <span class="sh-sub">${prevSubjects.length} subject${prevSubjects.length>1?'s':''}</span>
+    </div>
+    <table class="au-subjects-table" style="background:#fff8f5;">
+      <thead><tr>
+        <th style="width:40px">S.No</th>
+        <th style="width:130px">Subject Code</th>
+        <th class="center" style="width:80px">Grade</th>
+        <th class="center" style="width:90px">Status</th>
+      </tr></thead>
+      <tbody>${prevRows}</tbody>
+    </table>` : ''}
+
+    <!-- Result footer stats -->
+    <div class="au-result-footer">
+      <div class="au-footer-stat"><div class="fs-val">${currSubjects.length}</div><div class="fs-lbl">Subjects Appeared</div></div>
+      <div class="au-footer-stat"><div class="fs-val" style="${uCurr+uaCurr>0?'color:var(--au-fail)':''}">${uCurr+uaCurr}</div><div class="fs-lbl">Failed / Absent (Curr)</div></div>
+      <div class="au-footer-stat"><div class="fs-val" style="${prevSubjects.length>0?'color:var(--au-ua)':''}">${prevSubjects.length}</div><div class="fs-lbl">Pending Arrears</div></div>
+      <div class="au-footer-stat"><div class="fs-val" style="${totalArrears>0?'color:var(--au-fail)':'color:var(--au-pass)'}">${totalArrears}</div><div class="fs-lbl">Total Arrears</div></div>
+      <div class="au-footer-stat"><div class="fs-val">${gpa}</div><div class="fs-lbl">Semester GPA</div></div>
+    </div>
+
+    <!-- Action bar -->
+    <div class="au-action-bar">
+      <button class="au-print-btn" onclick="window.print()">🖨 Print Result</button>
+      <button class="au-download-btn" onclick="toast('PDF download coming soon')">⬇ Download PDF</button>
+      <button class="btn btn-outline" style="margin-left:auto" onclick="document.getElementById('au-result-area').style.display='none';document.getElementById('au-roll').value=''">✕ Close</button>
+    </div>`;
+
+  document.getElementById('au-result-card').innerHTML = html;
+  document.getElementById('au-result-area').style.display = 'block';
+  document.getElementById('au-result-area').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ══════════════════════════════════════
+//  EXCEL EXPORT
+// ══════════════════════════════════════
+function exportExcel() {
+  if (!sheetData.length) { toast('No data to export'); return; }
+  toast('Building Excel…');
+  const wb = XLSX.utils.book_new();
+  for (const sd of sheetData) {
+    const {name, currCodes, prevCodes, teachers, students} = sd;
+    const hasPrev = prevCodes.length > 0;
+    const n = students.length;
+    const row1 = [null,null,null,...currCodes];
+    if (hasPrev) row1.push(...prevCodes);
+    row1.push('U (Curr)','UA (Curr)');
+    if (hasPrev) row1.push('PREV ARREARS');
+    row1.push('TOTAL ARREARS');
+    const row2 = [null,null,null,...teachers.map(t=>t||'')];
+    if (hasPrev) prevCodes.forEach(()=>row2.push('Arrear'));
+    row2.push('Count','Count'); if (hasPrev) row2.push('Count'); row2.push('Count');
+    const wsData = [row1, row2];
+    students.forEach(([roll,d],idx) => {
+      const uC=currCodes.reduce((n,c)=>n+(d.subjects[c]==='U'?1:0),0);
+      const uaC=currCodes.reduce((n,c)=>n+(d.subjects[c]==='UA'?1:0),0);
+      const uP=prevCodes.reduce((n,c)=>n+(d.subjects[c]==='U'?1:0),0);
+      const uaP=prevCodes.reduce((n,c)=>n+(d.subjects[c]==='UA'?1:0),0);
+      const prev=uP+uaP, total=uC+uaC+prev;
+      const row=[idx+1,roll,d.name];
+      currCodes.forEach(c=>row.push(d.subjects[c]||''));
+      if(hasPrev) prevCodes.forEach(c=>row.push(d.subjects[c]||''));
+      row.push(uC,uaC); if(hasPrev) row.push(prev); row.push(total);
+      wsData.push(row);
+    });
+    wsData.push([]);
+    const failRow=[null,null,'SUBJECT WISE FAIL'],uaRow=[null,null,'UA (Absent)'],appRow=[null,null,'APPEARED'],passRow=[null,null,'PASS'],pctRow=[null,null,'PASS %'];
+    currCodes.forEach(c=>{ let f=0,ua=0,p=0,a=0; students.forEach(([,d])=>{ const g=d.subjects[c]; if(!g)return; a++; if(g==='U')f++; else if(g==='UA')ua++; else p++; }); failRow.push(f);uaRow.push(ua);appRow.push(a);passRow.push(p);pctRow.push(a>0?+((p/a)*100).toFixed(1):0); });
+    wsData.push(failRow,uaRow,appRow,passRow,pctRow,[]); 
+    const dist={0:0,1:0,2:0,3:0,4:0,5:0,6:0};
+    students.forEach(([,d])=>{ let t=0; Object.values(d.subjects).forEach(g=>{if(g==='U'||g==='UA')t++;}); dist[Math.min(t,6)]++; });
+    wsData.push([null,null,'ALL CLEAR',dist[0]]);
+    [1,2,3,4,5].forEach(k=>wsData.push([null,null,String(k),dist[k]]));
+    wsData.push([null,null,'6+',dist[6]],[null,null,'TOTAL',Object.values(dist).reduce((a,b)=>a+b,0)],[],[null,null,'OVERALL PASS %',n>0?+((dist[0]/n)*100).toFixed(1):0]);
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    const colW=[{wch:6},{wch:16},{wch:28}];
+    currCodes.forEach(()=>colW.push({wch:9})); if(hasPrev) prevCodes.forEach(()=>colW.push({wch:9}));
+    colW.push({wch:9},{wch:9}); if(hasPrev) colW.push({wch:10}); colW.push({wch:12});
+    ws['!cols']=colW;
+    XLSX.utils.book_append_sheet(wb, ws, name);
+  }
+  XLSX.writeFile(wb, 'EEE_Results_' + new Date().toISOString().slice(0,10) + '.xlsx');
+  toast('✓ Excel downloaded!');
+}
+
+// ══════════════════════════════════════
+//  EXPORT DEPLOYABLE HTML (for GitHub Pages)
+// ══════════════════════════════════════
+function exportDeployableHTML() {
+  if (!Object.keys(allStudents).length) { toast('No data loaded. Upload a .docx first.'); return; }
+  toast('Building deployable HTML…');
+
+  // Serialize the current allStudents data to JSON
+  const dataJSON = JSON.stringify(allStudents);
+
+  // Get the current page's full HTML
+  const fullHTML = document.documentElement.outerHTML;
+
+  // Build an injection script that pre-loads the data on page open
+  // We insert it just before </body>
+  const injectionScript = `
+<script id="__embedded_data__">
+(function(){
+  // Pre-embedded result data — do not edit manually
+  var _embeddedStudents = ${dataJSON};
+  // Wait for the main scripts to initialise then inject the data
+  document.addEventListener('DOMContentLoaded', function() {
+    allStudents = _embeddedStudents;
+    buildSheetData();
+    showResults();
+    // Switch default landing to Student portal since data is already loaded
+    // Staff upload UI is hidden because data is pre-loaded
+    document.getElementById('upload-section').style.display = 'none';
+    document.getElementById('summary-section').style.display = 'block';
+  });
+})();
+<\/script>
+</body>`;
+
+  const deployHTML = fullHTML.replace('</body>', injectionScript);
+
+  // Trigger download
+  const blob = new Blob([deployHTML], { type: 'text/html;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'index.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  toast('✓ index.html downloaded! Upload this file to your GitHub Pages repo.');
+}
+
+// ══════════════════════════════════════
+//  STARTUP — load pre-embedded data if present
+// ══════════════════════════════════════
+// (The exported index.html injects allStudents before DOMContentLoaded,
+//  so no extra work needed here — the DOMContentLoaded listener above
+//  handles it automatically.)
+
+
+function resetTool() {
+  allStudents={}; sheetData=[]; activeTab=0;
+  document.getElementById('upload-section').style.display='block';
+  document.getElementById('summary-section').style.display='none';
+  document.getElementById('file-input').value='';
+}
+
+let toastTimer;
+function toast(msg) {
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+// Enter key on search
+document.addEventListener('keydown', e => {
+  if (e.key==='Enter' && document.getElementById('page-student').classList.contains('active'))
+    searchStudent();
+});
+</script>
+</body>
+</html>
