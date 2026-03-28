@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EEE Result Portal — Mangayarkarasi College of Engineering</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&amp;family=DM+Sans:wght@300;400;500;600&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -446,14 +444,14 @@ td.td-name{text-align:left;font-family:'DM Sans',sans-serif;font-weight:600;font
     <div class="hdr-logo">⚡</div>
     <div class="hdr-title">
       <h1>EEE Result Portal</h1>
-      <p>Mangayarkarasi College of Engineering &mdash; B.E. Electrical &amp; Electronics Engineering</p>
+      <p>Mangayarkarasi College of Engineering — B.E. Electrical &amp; Electronics Engineering</p>
     </div>
   </div>
   <nav class="hdr-nav">
-    <button class="hdr-nav-btn active" onclick="showPage('staff')" id="nav-staff">
+    <button class="hdr-nav-btn active" onclick="showPage('staff')" id="nav-staff" fdprocessedid="l48zik">
       <span class="nav-icon">🗂</span> Staff Dashboard
     </button>
-    <button class="hdr-nav-btn" onclick="showPage('student')" id="nav-student">
+    <button class="hdr-nav-btn" onclick="showPage('student')" id="nav-student" fdprocessedid="7upnpt">
       <span class="nav-icon">🎓</span> Student Result
     </button>
   </nav>
@@ -466,7 +464,7 @@ td.td-name{text-align:left;font-family:'DM Sans',sans-serif;font-weight:600;font
 <div class="staff-main">
 
   <!-- Upload Zone -->
-  <div id="upload-section" onclick="document.getElementById('file-input').click()">
+  <div id="upload-section" onclick="document.getElementById('file-input').click()" style="display: none;">
     <span class="upload-icon">📄</span>
     <h2>Upload Result Word Document</h2>
     <p>Drag &amp; drop your <strong>.docx</strong> result file, or click to browse</p>
@@ -476,38 +474,407 @@ td.td-name{text-align:left;font-family:'DM Sans',sans-serif;font-weight:600;font
   </div>
 
   <!-- Progress -->
-  <div id="progress-wrap">
-    <div id="progress-text">Reading file…</div>
-    <div class="progress-bar-outer"><div class="progress-bar-inner" id="pbar"></div></div>
+  <div id="progress-wrap" style="display: none;">
+    <div id="progress-text">Done!</div>
+    <div class="progress-bar-outer"><div class="progress-bar-inner" id="pbar" style="width: 100%;"></div></div>
   </div>
 
   <!-- Results -->
-  <div id="summary-section">
-    <div class="summary-strip" id="summary-cards"></div>
+  <div id="summary-section" style="display: block;">
+    <div class="summary-strip" id="summary-cards">
+    <div class="sum-card gold"><div class="num">211</div><div class="lbl">Total Students</div></div>
+    <div class="sum-card green"><div class="num">61</div><div class="lbl">All Clear</div></div>
+    <div class="sum-card red"><div class="num">150</div><div class="lbl">With Arrears</div></div>
+    <div class="sum-card red"><div class="num">59</div><div class="lbl">Has UA</div></div>
+    <div class="sum-card"><div class="num">7</div><div class="lbl">Year Groups</div></div></div>
     <div class="export-bar">
       <h3>Results by Year / Batch</h3>
-      <button class="btn btn-gold" onclick="exportExcel()">⬇ Download Excel</button>
-      <button class="btn btn-primary" onclick="exportDeployableHTML()" title="Generate a standalone HTML file with data pre-loaded — upload this to GitHub Pages so students can search results directly">🚀 Export for GitHub Pages</button>
-      <button class="btn btn-outline" onclick="resetTool()">↩ New File</button>
+      <button class="btn btn-gold" onclick="exportExcel()" fdprocessedid="oc4rwi">⬇ Download Excel</button>
+      <button class="btn btn-primary" onclick="exportDeployableHTML()" title="Generate a standalone HTML file with data pre-loaded — upload this to GitHub Pages so students can search results directly" fdprocessedid="0dhkd8">🚀 Export for GitHub Pages</button>
+      <button class="btn btn-outline" onclick="resetTool()" fdprocessedid="14plag">↩ New File</button>
     </div>
-    <div class="tab-bar" id="tab-bar"></div>
+    <div class="tab-bar" id="tab-bar">
+    <button class="tab-btn active" onclick="switchTab(0)" fdprocessedid="b3rfsbh">
+      I YEAR<span class="tab-badge">30</span>
+    </button>
+    <button class="tab-btn " onclick="switchTab(1)" fdprocessedid="47lod5">
+      II YEAR<span class="tab-badge">58</span>
+    </button>
+    <button class="tab-btn " onclick="switchTab(2)" fdprocessedid="ossjvt">
+      III YEAR<span class="tab-badge">47</span>
+    </button>
+    <button class="tab-btn " onclick="switchTab(3)" fdprocessedid="s13iln">
+      IV YEAR<span class="tab-badge">52</span>
+    </button>
+    <button class="tab-btn " onclick="switchTab(4)" fdprocessedid="0vs9m7">
+      ARREAR (2021)<span class="tab-badge">15</span>
+    </button>
+    <button class="tab-btn " onclick="switchTab(5)" fdprocessedid="rnzrjc">
+      ARREAR (2020)<span class="tab-badge">5</span>
+    </button>
+    <button class="tab-btn " onclick="switchTab(6)" fdprocessedid="hk0v6g">
+      ARREAR (2019)<span class="tab-badge">4</span>
+    </button></div>
     <div class="filter-bar">
       <span class="filter-label">Filter:</span>
-      <input type="text" id="search-box" placeholder="Search name or roll number…" oninput="renderTable()">
-      <select id="arrear-filter" onchange="renderTable()">
+      <input type="text" id="search-box" placeholder="Search name or roll number…" oninput="renderTable()" fdprocessedid="gixbhb">
+      <select id="arrear-filter" onchange="renderTable()" fdprocessedid="uwo36v">
         <option value="">All Students</option>
         <option value="with">Has Arrears</option>
         <option value="clear">All Clear</option>
         <option value="ua">Has UA (Absent)</option>
         <option value="prev">Has Previous Arrears</option>
       </select>
-      <span id="filter-count" style="font-size:.78rem;color:#7a7060;margin-left:auto;"></span>
+      <span id="filter-count" style="font-size:.78rem;color:#7a7060;margin-left:auto;">Showing 30 of 30 students</span>
     </div>
-    <div class="table-wrap" id="table-wrap"></div>
+    <div class="table-wrap" id="table-wrap"><table><thead><tr>
+    <th style="text-align:center">S.No</th><th class="th-name">Roll Number</th><th class="th-name">Student Name</th>
+    <th class="th-curr">CS25C01<br><span style="font-size:.58rem;opacity:.7"></span></th><th class="th-curr">CY25C01<br><span style="font-size:.58rem;opacity:.7"></span></th><th class="th-curr">EE25C03<br><span style="font-size:.58rem;opacity:.7"></span></th><th class="th-curr">EN25C01<br><span style="font-size:.58rem;opacity:.7"></span></th><th class="th-curr">MA25C01<br><span style="font-size:.58rem;opacity:.7"></span></th><th class="th-curr">ME25C04<br><span style="font-size:.58rem;opacity:.7"></span></th><th class="th-curr">PH25C01<br><span style="font-size:.58rem;opacity:.7"></span></th><th class="th-curr">UC25A01<br><span style="font-size:.58rem;opacity:.7"></span></th><th class="th-curr">UC25A02<br><span style="font-size:.58rem;opacity:.7"></span></th><th class="th-curr">UC25H01<br><span style="font-size:.58rem;opacity:.7"></span></th>
+    
+    <th class="th-count ">U<br><small>Curr</small></th>
+    <th class="th-count">UA<br><small>Curr</small></th>
+    
+    <th class="th-total">TOTAL<br><small>ARREARS</small></th>
+  </tr></thead><tbody><tr>
+      <td class="td-sno">1</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105001')" title="View student result">923825105001</td>
+      <td class="td-name">AJAN R</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-UA">UA</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td>
+      
+      <td class=" cnt-u">6</td>
+      <td class="cnt-ua">1</td>
+      
+      <td class="cnt-total-bad">7</td>
+    </tr><tr>
+      <td class="td-sno">2</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105002')" title="View student result">923825105002</td>
+      <td class="td-name">AMEERA BANU R</td>
+      <td><span class="g g-Ap">A+</span></td><td><span class="g g-A">A</span></td><td><span class="g g-B">B</span></td><td><span class="g g-B">B</span></td><td><span class="g g-B">B</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-A">A</span></td>
+      
+      <td class=" ">—</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-0">✓</td>
+    </tr><tr>
+      <td class="td-sno">3</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105003')" title="View student result">923825105003</td>
+      <td class="td-name">ARUNPANDI A</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-B">B</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-S">S</span></td><td><span class="g g-A">A</span></td>
+      
+      <td class=" cnt-u">4</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">4</td>
+    </tr><tr>
+      <td class="td-sno">4</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105004')" title="View student result">923825105004</td>
+      <td class="td-name">BALAJI J</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-B">B</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-B">B</span></td>
+      
+      <td class=" cnt-u">5</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">5</td>
+    </tr><tr>
+      <td class="td-sno">5</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105005')" title="View student result">923825105005</td>
+      <td class="td-name">DEEPIKA S</td>
+      <td><span class="g g-Bp">B+</span></td><td><span class="g g-A">A</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-B">B</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-S">S</span></td><td><span class="g g-A">A</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-Ap">A+</span></td>
+      
+      <td class=" ">—</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-0">✓</td>
+    </tr><tr>
+      <td class="td-sno">6</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105006')" title="View student result">923825105006</td>
+      <td class="td-name">DEVADHARSHINI G</td>
+      <td><span class="g g-A">A</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-A">A</span></td><td><span class="g g-A">A</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-S">S</span></td><td><span class="g g-A">A</span></td><td><span class="g g-S">S</span></td><td><span class="g g-S">S</span></td><td><span class="g g-A">A</span></td>
+      
+      <td class=" ">—</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-0">✓</td>
+    </tr><tr>
+      <td class="td-sno">7</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105007')" title="View student result">923825105007</td>
+      <td class="td-name">DHARANIDHARAN M</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-B">B</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-S">S</span></td><td><span class="g g-B">B</span></td>
+      
+      <td class=" cnt-u">5</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">5</td>
+    </tr><tr>
+      <td class="td-sno">8</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105008')" title="View student result">923825105008</td>
+      <td class="td-name">ESWARAN C</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-B">B</span></td>
+      
+      <td class=" cnt-u">6</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">6</td>
+    </tr><tr>
+      <td class="td-sno">9</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105009')" title="View student result">923825105009</td>
+      <td class="td-name">GIRIVASAN A V</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-B">B</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-S">S</span></td><td><span class="g g-B">B</span></td>
+      
+      <td class=" cnt-u">5</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">5</td>
+    </tr><tr>
+      <td class="td-sno">10</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105010')" title="View student result">923825105010</td>
+      <td class="td-name">HARIHARAN P R</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-A">A</span></td>
+      
+      <td class=" cnt-u">6</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">6</td>
+    </tr><tr>
+      <td class="td-sno">11</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105011')" title="View student result">923825105011</td>
+      <td class="td-name">HARSHINI D</td>
+      <td><span class="g g-A">A</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-A">A</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-B">B</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-S">S</span></td><td><span class="g g-S">S</span></td><td><span class="g g-A">A</span></td>
+      
+      <td class=" ">—</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-0">✓</td>
+    </tr><tr>
+      <td class="td-sno">12</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105012')" title="View student result">923825105012</td>
+      <td class="td-name">HEMAPRIYA P J</td>
+      <td><span class="g g-Bp">B+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-B">B</span></td>
+      
+      <td class=" cnt-u">4</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">4</td>
+    </tr><tr>
+      <td class="td-sno">13</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105013')" title="View student result">923825105013</td>
+      <td class="td-name">ISSAC STEVE S</td>
+      <td><span class="g g-Bp">B+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-B">B</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-Bp">B+</span></td>
+      
+      <td class=" cnt-u">4</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">4</td>
+    </tr><tr>
+      <td class="td-sno">14</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105014')" title="View student result">923825105014</td>
+      <td class="td-name">JACOB JEBARAJ G</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-A">A</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td>
+      
+      <td class=" cnt-u">6</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">6</td>
+    </tr><tr>
+      <td class="td-sno">15</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105015')" title="View student result">923825105015</td>
+      <td class="td-name">JANANI K R</td>
+      <td><span class="g g-A">A</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-A">A</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-B">B</span></td>
+      
+      <td class=" cnt-u">4</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">4</td>
+    </tr><tr>
+      <td class="td-sno">16</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105016')" title="View student result">923825105016</td>
+      <td class="td-name">JOEAL PRINCERAJ P</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-B">B</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td>
+      
+      <td class=" cnt-u">6</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">6</td>
+    </tr><tr>
+      <td class="td-sno">17</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105017')" title="View student result">923825105017</td>
+      <td class="td-name">LEKHASHRI S</td>
+      <td><span class="g g-Ap">A+</span></td><td><span class="g g-A">A</span></td><td><span class="g g-C">C+</span></td><td><span class="g g-A">A</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-A">A</span></td>
+      
+      <td class=" ">—</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-0">✓</td>
+    </tr><tr>
+      <td class="td-sno">18</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105018')" title="View student result">923825105018</td>
+      <td class="td-name">LIBY JAMES M</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-B">B</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-Bp">B+</span></td>
+      
+      <td class=" cnt-u">3</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">3</td>
+    </tr><tr>
+      <td class="td-sno">19</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105019')" title="View student result">923825105019</td>
+      <td class="td-name">POTHIRAJA P</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Bp">B+</span></td>
+      
+      <td class=" cnt-u">6</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">6</td>
+    </tr><tr>
+      <td class="td-sno">20</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105020')" title="View student result">923825105020</td>
+      <td class="td-name">RAJESHKANNA M</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-B">B</span></td><td><span class="g g-S">S</span></td><td><span class="g g-A">A</span></td><td><span class="g g-S">S</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Bp">B+</span></td>
+      
+      <td class=" cnt-u">2</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-mid">2</td>
+    </tr><tr>
+      <td class="td-sno">21</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105021')" title="View student result">923825105021</td>
+      <td class="td-name">ROOBAN J</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td>
+      
+      <td class=" cnt-u">7</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">7</td>
+    </tr><tr>
+      <td class="td-sno">22</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105022')" title="View student result">923825105022</td>
+      <td class="td-name">SANJAY P</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td>
+      
+      <td class=" cnt-u">7</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">7</td>
+    </tr><tr>
+      <td class="td-sno">23</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105023')" title="View student result">923825105023</td>
+      <td class="td-name">SANTHOSH I</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td>
+      
+      <td class=" cnt-u">7</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">7</td>
+    </tr><tr>
+      <td class="td-sno">24</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105024')" title="View student result">923825105024</td>
+      <td class="td-name">SELVA PANDI K S</td>
+      <td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-B">B</span></td><td><span class="g g-A">A</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-B">B</span></td>
+      
+      <td class=" cnt-u">3</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">3</td>
+    </tr><tr>
+      <td class="td-sno">25</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105025')" title="View student result">923825105025</td>
+      <td class="td-name">SHIVANI A</td>
+      <td><span class="g g-Bp">B+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-C">C+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-B">B</span></td>
+      
+      <td class=" cnt-u">4</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">4</td>
+    </tr><tr>
+      <td class="td-sno">26</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105026')" title="View student result">923825105026</td>
+      <td class="td-name">SRI JEYAVISHNUKUMAR LR</td>
+      <td><span class="g g-A">A</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-A">A</span></td><td><span class="g g-S">S</span></td><td><span class="g g-A">A</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-A">A</span></td>
+      
+      <td class=" ">—</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-0">✓</td>
+    </tr><tr>
+      <td class="td-sno">27</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105027')" title="View student result">923825105027</td>
+      <td class="td-name">SRIRAM V R</td>
+      <td><span class="g g-A">A</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-B">B</span></td><td><span class="g g-A">A</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-S">S</span></td><td><span class="g g-S">S</span></td><td><span class="g g-A">A</span></td>
+      
+      <td class=" cnt-u">1</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-mid">1</td>
+    </tr><tr>
+      <td class="td-sno">28</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105028')" title="View student result">923825105028</td>
+      <td class="td-name">SWETHA S</td>
+      <td><span class="g g-A">A</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-A">A</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-Ap">A+</span></td>
+      
+      <td class=" cnt-u">4</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">4</td>
+    </tr><tr>
+      <td class="td-sno">29</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105029')" title="View student result">923825105029</td>
+      <td class="td-name">YOGARAJAN M</td>
+      <td><span class="g g-A">A</span></td><td><span class="g g-U">U</span></td><td><span class="g g-U">U</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-Ap">A+</span></td>
+      
+      <td class=" cnt-u">4</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">4</td>
+    </tr><tr>
+      <td class="td-sno">30</td>
+      <td class="td-roll" style="cursor:pointer;color:#1a4a7a;text-decoration:underline" onclick="quickLookup('923825105030')" title="View student result">923825105030</td>
+      <td class="td-name">YOGESH L</td>
+      <td><span class="g g-A">A</span></td><td><span class="g g-Bp">B+</span></td><td><span class="g g-U">U</span></td><td><span class="g g-A">A</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-U">U</span></td><td><span class="g g-S">S</span></td><td><span class="g g-Ap">A+</span></td><td><span class="g g-A">A</span></td>
+      
+      <td class=" cnt-u">3</td>
+      <td class="">—</td>
+      
+      <td class="cnt-total-bad">3</td>
+    </tr></tbody></table></div>
     <div class="stats-section" id="stats-section">
       <div class="stats-header">📊 Arrear Distribution &amp; Subject-wise Analysis</div>
-      <div class="arrear-dist" id="arrear-dist"></div>
-      <div class="stats-grid" id="stats-grid"></div>
+      <div class="arrear-dist" id="arrear-dist">
+    <div class="ad-chip clear"><div class="adn">6</div><div class="adl">All Clear</div></div>
+    <div class="ad-chip few"><div class="adn">1</div><div class="adl">1 Arrear</div></div><div class="ad-chip few"><div class="adn">1</div><div class="adl">2 Arrears</div></div><div class="ad-chip many"><div class="adn">3</div><div class="adl">3 Arrears</div></div><div class="ad-chip many"><div class="adn">7</div><div class="adl">4 Arrears</div></div><div class="ad-chip many"><div class="adn">3</div><div class="adl">5 Arrears</div></div><div class="ad-chip many"><div class="adn">9</div><div class="adl">6+ Arrears</div></div>
+    <div class="ad-chip" style="background:var(--red-bg);border-color:#e8b4b0">
+      <div class="adn" style="color:var(--red);font-size:1rem;padding-top:6px">20.0%</div>
+      <div class="adl">Pass Rate</div></div></div>
+      <div class="stats-grid" id="stats-grid"><div class="stat-cell"><div class="sc">CS25C01</div>
+      <div class="stat-row"><span class="slbl">Pass 47%</span><div class="sbar"><div class="sfill sf-pass" style="width:47%"></div></div><span class="sval">14</span></div>
+      <div class="stat-row"><span class="slbl">Fail 53%</span><div class="sbar"><div class="sfill sf-fail" style="width:53%"></div></div><span class="sval">16</span></div>
+      <div class="stat-row"><span class="slbl">UA 0%</span><div class="sbar"><div class="sfill sf-ua" style="width:0%"></div></div><span class="sval">0</span></div></div><div class="stat-cell"><div class="sc">CY25C01</div>
+      <div class="stat-row"><span class="slbl">Pass 33%</span><div class="sbar"><div class="sfill sf-pass" style="width:33%"></div></div><span class="sval">10</span></div>
+      <div class="stat-row"><span class="slbl">Fail 67%</span><div class="sbar"><div class="sfill sf-fail" style="width:67%"></div></div><span class="sval">20</span></div>
+      <div class="stat-row"><span class="slbl">UA 0%</span><div class="sbar"><div class="sfill sf-ua" style="width:0%"></div></div><span class="sval">0</span></div></div><div class="stat-cell"><div class="sc">EE25C03</div>
+      <div class="stat-row"><span class="slbl">Pass 33%</span><div class="sbar"><div class="sfill sf-pass" style="width:33%"></div></div><span class="sval">10</span></div>
+      <div class="stat-row"><span class="slbl">Fail 67%</span><div class="sbar"><div class="sfill sf-fail" style="width:67%"></div></div><span class="sval">20</span></div>
+      <div class="stat-row"><span class="slbl">UA 0%</span><div class="sbar"><div class="sfill sf-ua" style="width:0%"></div></div><span class="sval">0</span></div></div><div class="stat-cell"><div class="sc">EN25C01</div>
+      <div class="stat-row"><span class="slbl">Pass 77%</span><div class="sbar"><div class="sfill sf-pass" style="width:77%"></div></div><span class="sval">23</span></div>
+      <div class="stat-row"><span class="slbl">Fail 23%</span><div class="sbar"><div class="sfill sf-fail" style="width:23%"></div></div><span class="sval">7</span></div>
+      <div class="stat-row"><span class="slbl">UA 0%</span><div class="sbar"><div class="sfill sf-ua" style="width:0%"></div></div><span class="sval">0</span></div></div><div class="stat-cell"><div class="sc">MA25C01</div>
+      <div class="stat-row"><span class="slbl">Pass 23%</span><div class="sbar"><div class="sfill sf-pass" style="width:23%"></div></div><span class="sval">7</span></div>
+      <div class="stat-row"><span class="slbl">Fail 77%</span><div class="sbar"><div class="sfill sf-fail" style="width:77%"></div></div><span class="sval">23</span></div>
+      <div class="stat-row"><span class="slbl">UA 0%</span><div class="sbar"><div class="sfill sf-ua" style="width:0%"></div></div><span class="sval">0</span></div></div><div class="stat-cell"><div class="sc">ME25C04</div>
+      <div class="stat-row"><span class="slbl">Pass 100%</span><div class="sbar"><div class="sfill sf-pass" style="width:100%"></div></div><span class="sval">30</span></div>
+      <div class="stat-row"><span class="slbl">Fail 0%</span><div class="sbar"><div class="sfill sf-fail" style="width:0%"></div></div><span class="sval">0</span></div>
+      <div class="stat-row"><span class="slbl">UA 0%</span><div class="sbar"><div class="sfill sf-ua" style="width:0%"></div></div><span class="sval">0</span></div></div><div class="stat-cell"><div class="sc">PH25C01</div>
+      <div class="stat-row"><span class="slbl">Pass 30%</span><div class="sbar"><div class="sfill sf-pass" style="width:30%"></div></div><span class="sval">9</span></div>
+      <div class="stat-row"><span class="slbl">Fail 67%</span><div class="sbar"><div class="sfill sf-fail" style="width:67%"></div></div><span class="sval">20</span></div>
+      <div class="stat-row"><span class="slbl">UA 3%</span><div class="sbar"><div class="sfill sf-ua" style="width:3%"></div></div><span class="sval">1</span></div></div><div class="stat-cell"><div class="sc">UC25A01</div>
+      <div class="stat-row"><span class="slbl">Pass 100%</span><div class="sbar"><div class="sfill sf-pass" style="width:100%"></div></div><span class="sval">30</span></div>
+      <div class="stat-row"><span class="slbl">Fail 0%</span><div class="sbar"><div class="sfill sf-fail" style="width:0%"></div></div><span class="sval">0</span></div>
+      <div class="stat-row"><span class="slbl">UA 0%</span><div class="sbar"><div class="sfill sf-ua" style="width:0%"></div></div><span class="sval">0</span></div></div><div class="stat-cell"><div class="sc">UC25A02</div>
+      <div class="stat-row"><span class="slbl">Pass 100%</span><div class="sbar"><div class="sfill sf-pass" style="width:100%"></div></div><span class="sval">30</span></div>
+      <div class="stat-row"><span class="slbl">Fail 0%</span><div class="sbar"><div class="sfill sf-fail" style="width:0%"></div></div><span class="sval">0</span></div>
+      <div class="stat-row"><span class="slbl">UA 0%</span><div class="sbar"><div class="sfill sf-ua" style="width:0%"></div></div><span class="sval">0</span></div></div><div class="stat-cell"><div class="sc">UC25H01</div>
+      <div class="stat-row"><span class="slbl">Pass 80%</span><div class="sbar"><div class="sfill sf-pass" style="width:80%"></div></div><span class="sval">24</span></div>
+      <div class="stat-row"><span class="slbl">Fail 20%</span><div class="sbar"><div class="sfill sf-fail" style="width:20%"></div></div><span class="sval">6</span></div>
+      <div class="stat-row"><span class="slbl">UA 0%</span><div class="sbar"><div class="sfill sf-ua" style="width:0%"></div></div><span class="sval">0</span></div></div></div>
     </div>
   </div>
 
@@ -526,12 +893,12 @@ td.td-name{text-align:left;font-family:'DM Sans',sans-serif;font-weight:600;font
         <div class="au-emblem">🏛</div>
         <div class="au-inst-name">
           <h2>Mangayarkarasi College of Engineering</h2>
-          <p>Affiliated to Anna University, Chennai &mdash; Inst. Code: 9238</p>
+          <p>Affiliated to Anna University, Chennai — Inst. Code: 9238</p>
         </div>
       </div>
       <div class="au-portal-title">
         <h3>Controller of Examinations</h3>
-        <p>Result Publication Portal &mdash; Nov/Dec 2025</p>
+        <p>Result Publication Portal — Nov/Dec 2025</p>
       </div>
     </div>
     <div class="au-nav-bar">
@@ -581,7 +948,7 @@ td.td-name{text-align:left;font-family:'DM Sans',sans-serif;font-weight:600;font
 
 </div><!-- /page-student -->
 
-<div id="toast"></div>
+<div id="toast" class="show">Building deployable HTML…</div>
 
 <script>
 // ══════════════════════════════════════
@@ -1130,7 +1497,24 @@ function exportDeployableHTML() {
   const fullHTML = document.documentElement.outerHTML;
 
   // Build an injection script that pre-loads the data on page open
-  // We insert it just before </body>
+  // We insert it just before 
+<script id="__embedded_data__">
+(function(){
+  // Pre-embedded result data — do not edit manually
+  var _embeddedStudents = {"923821105002":{"name":"ABDHULRAHUMAN R","subjects":{"GE3151":"UA","MA3151":"UA","EE3251":"UA","MA3251":"U","CS3353":"U","EC3301":"UA","EE3301":"U","EE3302":"UA","EE3303":"UA","MA3303":"U","EE3401":"U","EE3404":"UA","EE3004":"UA","EE3006":"UA","EE3501":"UA","EE3503":"U","EE3591":"B","EE3602":"U"}},"923821105025":{"name":"MANIKANDAN K","subjects":{"MA3151":"UA","BE3255":"UA","EE3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3302":"UA","EE3303":"UA","MA3303":"UA","EE3402":"UA","EE3404":"UA","EE3405":"UA","GE3451":"UA","EE3001":"UA","EE3004":"UA","EE3501":"UA","EE3503":"UA","EE3591":"UA","EE3033":"UA","EE3601":"UA","EE3602":"UA","CME365":"UA","OMR353":"UA"}},"923821105026":{"name":"MARI SELVAN K","subjects":{"MA3151":"B","EE3251":"B+","MA3251":"B","EE3303":"U","MA3303":"B","EE3503":"U"}},"923821105057":{"name":"VISHVA T","subjects":{"CY3151":"UA","GE3151":"UA","MA3151":"UA","PH3151":"UA","EE3251":"UA","GE3251":"UA","HS3251":"UA","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3303":"UA","MA3303":"U","EE3405":"UA","GE3451":"UA","EE3001":"UA","EE3004":"UA","EE3501":"U","EE3503":"U","EE3591":"UA","EE3033":"UA","EE3601":"UA","EE3602":"B","EE3701":"UA","GE3752":"UA"}},"923822105002":{"name":"AKASHRAJ M","subjects":{"PH3151":"B+","BE3255":"B+","MA3251":"B+","CS3353":"U","EC3301":"B","EE3302":"B+","EE3303":"B","MA3303":"B","EE3401":"B+","EE3402":"B","EE3403":"B","EE3404":"U","GE3451":"U","EE3501":"U","EE3503":"B+","EE3591":"B","EE3601":"U","CME365":"U","EE3701":"U","GE3752":"U","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105004":{"name":"ARUN PANDI A","subjects":{"CY3151":"UA","MA3151":"UA","PH3151":"UA","EE3251":"UA","GE3251":"U","HS3252":"UA","MA3251":"U","PH3202":"UA","EC3301":"U","EE3301":"U","EE3302":"U","EE3303":"B","MA3303":"U","EE3401":"UA","EE3402":"UA","EE3403":"U","EE3404":"U","EE3405":"B","GE3451":"UA","EE3004":"B","EE3501":"UA","EE3503":"UA","EE3601":"B+","EE3602":"U","CME365":"B","EE3701":"U","GE3752":"U","GE3791":"U","NM1123":"A","OCS352":"B+","OMR353":"B"}},"923822105005":{"name":"BALAPRASANNA S","subjects":{"CY3151":"UA","GE3151":"UA","GE3152":"UA","MA3151":"UA","PH3151":"UA","BE3255":"UA","EE3251":"UA","GE3251":"UA","HS3252":"UA","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"UA","EE3303":"UA","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","GE3451":"UA","EE3004":"UA","EE3009":"UA","EE3014":"UA","EE3501":"UA","EE3503":"UA","EE3591":"UA","EE3022":"UA","EE3026":"UA","EE3034":"UA","EE3601":"UA","EE3602":"UA","OCS351":"UA","CME365":"U","EE3005":"UA","EE3701":"U","GE3752":"UA","GE3791":"UA","NM1123":"A+","OCS352":"B","OMR353":"UA"}},"923822105008":{"name":"BOOMIKA R","subjects":{"GE3151":"B+","EE3302":"B","EE3401":"U","EE3404":"B","EE3405":"U","EE3503":"B","EE3601":"B+","CME365":"B+","EE3701":"A+","GE3752":"B+","GE3791":"A","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105010":{"name":"DEEPA SRI R","subjects":{"PH3151":"UA","EC3301":"B","EE3303":"B","EE3401":"U","EE3404":"B","EE3004":"B+","EE3501":"UA","EE3503":"B+","EE3591":"B","EE3601":"B+","CME365":"B+","EE3701":"A","GE3752":"A","GE3791":"A","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105013":{"name":"DIVYA P","subjects":{"CY3151":"UA","GE3151":"UA","MA3151":"UA","PH3151":"UA","BE3255":"UA","EE3251":"UA","GE3251":"UA","HS3252":"UA","MA3251":"UA","PH3202":"UA","EC3301":"U","EE3301":"UA","EE3302":"UA","EE3303":"UA","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","EE3412":"A","GE3451":"UA","EE3004":"UA","EE3501":"UA","EE3503":"UA","EE3591":"UA","EE3601":"UA","EE3602":"UA","CME365":"U","EE3701":"U","GE3752":"U","GE3791":"U","NM1123":"A","OCS352":"B+","OMR353":"B+"}},"923822105016":{"name":"HARINI PRIYA M","subjects":{"MA3151":"U","GE3251":"UA","CS3353":"UA","EC3301":"B+","EE3302":"B+","EE3401":"U","EE3503":"B+","EE3591":"U","EE3602":"UA","CME365":"B+","EE3701":"U","GE3752":"A","GE3791":"B+","NM1123":"A+","OCS352":"A","OMR353":"B+"}},"923822105019":{"name":"KADHIJA S","subjects":{"GE3151":"B+","MA3151":"U","PH3151":"UA","EE3251":"UA","MA3251":"UA","CS3353":"UA","EC3301":"U","EE3301":"UA","EE3302":"U","EE3303":"U","MA3303":"UA","EE3402":"UA","EE3403":"UA","EE3404":"U","EE3405":"B+","GE3451":"U","EE3501":"UA","EE3503":"U","EE3591":"U","EE3601":"U","EE3602":"U","CME365":"B","EE3701":"U","GE3752":"A","GE3791":"B+","NM1123":"O","OCS352":"B+","OMR353":"U"}},"923822105029":{"name":"NAVEENSAMY B","subjects":{"MA3151":"UA","PH3151":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","MA3303":"UA","EE3403":"UA","EE3501":"UA","EE3503":"UA","EE3591":"U","EE3602":"UA","CME365":"UA","EE3701":"B+","GE3752":"UA","GE3791":"U","NM1123":"A+","OCS352":"B+","OMR353":"UA"}},"923822105032":{"name":"POOJA K","subjects":{"MA3151":"UA","GE3251":"UA","CS3353":"UA","EC3301":"UA","EE3301":"U","EE3302":"B+","MA3303":"UA","EE3402":"UA","EE3404":"UA","GE3451":"UA","EE3503":"B","EE3591":"U","EE3601":"U","EE3602":"U","CME365":"B+","EE3701":"B+","GE3752":"U","GE3791":"B+","NM1123":"O","OCS352":"B+","OMR353":"B+"}},"923822105033":{"name":"RAJA SOORIYA S","subjects":{"GE3151":"B+","MA3151":"U","BE3255":"B+","EE3251":"UA","GE3251":"B","HS3252":"UA","MA3251":"UA","PH3202":"B+","EC3301":"U","EE3301":"U","EE3302":"U","EE3303":"U","MA3303":"U","EE3401":"U","EE3402":"B","EE3403":"U","EE3404":"B","EE3405":"B","GE3451":"U","EE3004":"B","EE3501":"U","EE3503":"U","EE3591":"U","EE3601":"U","EE3602":"B+","CME365":"B+","EE3701":"U","GE3752":"U","GE3791":"U","NM1123":"O","OCS352":"B+","OMR353":"B+"}},"923822105035":{"name":"RAJPRASATH K","subjects":{"PH3151":"B+","EC3301":"B+","EE3302":"B","MA3303":"UA","EE3403":"U","EE3405":"B+","EE3503":"B","EE3591":"U","EE3601":"B+","CME365":"U","EE3701":"B+","GE3752":"U","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105038":{"name":"RENUGA DEVI S","subjects":{"PH3151":"B","EC3301":"B+","EE3302":"B","EE3303":"B","EE3401":"B+","EE3405":"B+","EE3503":"B+","EE3591":"U","EE3601":"U","EE3602":"B+","CME365":"B+","EE3701":"B+","GE3752":"U","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105040":{"name":"RONEY JOSHUA WESLEYJ","subjects":{"MA3151":"U","EC3301":"B+","EE3302":"U","EE3303":"B","MA3303":"U","EE3401":"B","EE3403":"B+","EE3405":"U","EE3503":"UA","EE3591":"U","EE3601":"B+","EE3602":"B+","CME365":"B+","EE3701":"U","GE3752":"B+","GE3791":"A","NM1123":"A+","OCS352":"A","OMR353":"B+"}},"923822105041":{"name":"ROONY JOEL KINGSLEY J","subjects":{"MA3151":"U","PH3151":"B+","EE3251":"UA","EC3301":"B+","EE3301":"U","EE3303":"U","MA3303":"UA","EE3401":"UA","EE3403":"B","EE3405":"U","GE3451":"U","EE3503":"U","EE3591":"U","EE3601":"B+","CME365":"B+","EE3701":"U","GE3752":"B+","GE3791":"B+","NM1123":"A+","OCS352":"A","OMR353":"B+"}},"923822105043":{"name":"SAKTHIVEL C","subjects":{"CY3151":"UA","GE3151":"UA","GE3152":"UA","MA3151":"UA","PH3151":"UA","BE3255":"UA","EE3251":"UA","GE3251":"UA","GE3252":"UA","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"UA","EE3303":"UA","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","GE3451":"UA","EE3004":"UA","EE3501":"UA","EE3503":"UA","EE3591":"U","EE3601":"UA","EE3602":"UA","CME365":"U","EE3701":"U","GE3752":"U","GE3791":"U","NM1123":"A+","OCS352":"B+","OMR353":"U"}},"923822105044":{"name":"SANJANA M","subjects":{"CY3151":"UA","GE3151":"UA","MA3151":"UA","PH3151":"UA","BE3255":"UA","EE3251":"UA","GE3251":"UA","GE3252":"UA","MA3251":"UA","CS3353":"UA","EC3301":"U","EE3301":"UA","EE3302":"U","EE3303":"UA","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","GE3451":"UA","EE3004":"U","EE3501":"UA","EE3503":"U","EE3591":"U","EE3601":"UA","EE3602":"U","CME365":"U","EE3701":"U","GE3752":"U","GE3791":"B+","NM1123":"O","OCS352":"B+","OMR353":"U"}},"923822105051":{"name":"SURYA G","subjects":{"HS3152":"UA","MA3151":"UA","PH3151":"UA","BE3255":"UA","EE3251":"UA","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"UA","EE3303":"UA","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","EE3004":"UA","EE3501":"UA","EE3503":"UA","EE3591":"UA","EE3601":"UA","EE3602":"UA","CME365":"U","EE3701":"U","GE3752":"UA","GE3791":"U","NM1123":"A+","OCS352":"B","OMR353":"U"}},"923822105058":{"name":"YOGESHWAR G K","subjects":{"CY3151":"UA","GE3151":"B+","MA3151":"U","PH3151":"U","BE3255":"U","EE3251":"UA","GE3251":"B","HS3252":"U","MA3251":"UA","PH3202":"U","CS3353":"UA","EC3301":"B","EE3301":"U","EE3302":"U","EE3303":"U","MA3303":"U","EE3401":"U","EE3402":"UA","EE3403":"U","EE3404":"U","EE3405":"B","EE3004":"UA","EE3501":"UA","EE3503":"UA","EE3591":"U","EE3601":"U","EE3602":"U","CME365":"U","EE3701":"U","GE3752":"U","GE3791":"B","NM1123":"A+","OCS352":"B+","OMR353":"U"}},"923822105059":{"name":"YUVARAJ M","subjects":{"CY3151":"UA","GE3151":"U","PH3151":"U","BE3255":"U","EE3251":"UA","GE3252":"U","HS3252":"UA","MA3251":"UA","PH3202":"U","CS3353":"UA","EC3301":"U","EE3301":"UA","EE3302":"U","EE3303":"U","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"U","EE3404":"UA","EE3405":"U","GE3451":"UA","EE3004":"UA","EE3501":"UA","EE3503":"UA","EE3591":"UA","EE3022":"B+","EE3601":"UA","EE3602":"UA","CME365":"U","EE3701":"UA","GE3752":"U","GE3791":"U","NM1123":"A+","OCS352":"B","OMR353":"U"}},"923823105004":{"name":"AKSHAYA S","subjects":{"CY3151":"UA","GE3151":"B+","GE3152":"B+","MA3151":"U","PH3151":"UA","BE3255":"UA","EE3251":"UA","GE3251":"UA","GE3252":"UA","MA3251":"UA","CS3353":"UA","EC3301":"UA","EE3302":"UA","EE3303":"UA","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","EE3004":"B+","EE3009":"UA","EE3014":"UA","EE3501":"UA","EE3503":"UA","EE3511":"UA","EE3512":"UA","EE3591":"UA","MX3084":"A+","NM1115":"UA"}},"923823105006":{"name":"ARUL KARUPPANASAMYM","subjects":{"GE3152":"B+","HS3152":"U","MA3151":"U","PH3151":"B","EE3251":"U","GE3252":"U","MA3251":"U","CS3353":"U","EC3301":"U","EE3301":"U","EE3302":"U","EE3303":"U","MA3303":"U","EE3401":"B+","EE3402":"U","EE3403":"U","EE3404":"U","EE3405":"B+","GE3451":"U","EE3004":"U","EE3009":"B+","EE3014":"B+","EE3501":"U","EE3503":"B","EE3511":"A+","EE3512":"A+","EE3591":"B","MX3084":"A+","NM1115":"A+"}},"923823105007":{"name":"ASIKHAN R","subjects":{"CY3151":"UA","GE3151":"UA","GE3152":"UA","HS3152":"UA","MA3151":"UA","PH3151":"UA","BE3255":"UA","EE3251":"UA","GE3251":"UA","GE3252":"UA","HS3252":"UA","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"UA","EE3303":"UA","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","EE3411":"A","EE3412":"A","EE3413":"A+","GE3451":"UA","EE3004":"UA","EE3009":"UA","EE3014":"UA","EE3501":"UA","EE3503":"UA","EE3511":"A+","EE3512":"A+","EE3591":"UA","MX3084":"A+","NM1115":"UA"}},"923823105008":{"name":"AVINASH U","subjects":{"CY3151":"U","GE3152":"B+","MA3151":"UA","PH3151":"UA","BE3255":"UA","EE3251":"UA","GE3251":"B","GE3252":"UA","HS3252":"U","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"U","EE3303":"UA","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","EE3004":"U","EE3009":"U","EE3014":"B+","EE3501":"U","EE3503":"U","EE3511":"A+","EE3512":"A+","EE3591":"U","MX3084":"O","NM1115":"O"}},"923823105009":{"name":"BHARATHKUMAR V","subjects":{"CY3151":"U","GE3151":"B","HS3152":"U","MA3151":"UA","PH3151":"U","BE3255":"UA","EE3251":"UA","GE3251":"UA","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"UA","EE3303":"U","MA3303":"U","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"B+","EE3411":"A","EE3413":"A+","GE3451":"UA","EE3004":"U","EE3009":"B+","EE3014":"UA","EE3501":"U","EE3503":"UA","EE3511":"A","EE3512":"A+","EE3591":"U","MX3084":"A+","NM1115":"A+"}},"923823105012":{"name":"DHANALAKSHMI S","subjects":{"MA3151":"U","GE3251":"B+","EE3302":"B+","EE3303":"U","MA3303":"B+","EE3401":"A","EE3404":"U","EE3405":"B+","EE3004":"A","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"O","EE3512":"O","EE3591":"A","MX3084":"O","NM1115":"O"}},"923823105013":{"name":"DINESH KUMAR N","subjects":{"GE3151":"U","HS3152":"U","MA3151":"UA","PH3151":"B","BE3255":"UA","EE3251":"UA","GE3251":"UA","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"UA","EE3303":"UA","MA3303":"U","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","GE3451":"UA","EE3004":"U","EE3009":"B+","EE3014":"B+","EE3501":"U","EE3503":"U","EE3511":"A","EE3512":"A+","EE3591":"U","MX3084":"A+","NM1115":"A+"}},"923823105027":{"name":"MANJUSREE A","subjects":{"GE3152":"A","MA3151":"B","GE3252":"UA","PH3202":"U","EE3301":"UA","EE3302":"B+","EE3303":"U","EE3401":"U","EE3402":"B+","EE3403":"B","EE3404":"U","EE3405":"B+","EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105030":{"name":"MOHAN M","subjects":{"CY3151":"UA","GE3151":"UA","HS3152":"UA","MA3151":"UA","PH3151":"UA","EE3251":"UA","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"UA","EE3303":"UA","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","GE3451":"UA","EE3004":"U","EE3009":"A","EE3014":"U","EE3501":"U","EE3503":"U","EE3511":"A+","EE3512":"A+","EE3591":"U","MX3084":"A+","NM1115":"A+"}},"923823105032":{"name":"MURUGADAS V","subjects":{"MA3151":"UA","PH3151":"U","EE3251":"U","EC3301":"UA","EE3301":"UA","EE3302":"U","EE3303":"UA","MA3303":"UA","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"U","GE3451":"UA","EE3004":"B+","EE3009":"A","EE3014":"B+","EE3501":"U","EE3503":"B+","EE3511":"A+","EE3512":"A+","EE3591":"B+","MX3084":"A+","NM1115":"A+"}},"923823105035":{"name":"NITHISH KUMAR M","subjects":{"GE3151":"U","HS3152":"U","MA3151":"UA","PH3151":"B","BE3255":"UA","EE3251":"UA","HS3252":"U","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"U","EE3303":"U","MA3303":"U","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"U","GE3451":"UA","EE3004":"U","EE3009":"B+","EE3014":"B+","EE3501":"U","EE3503":"U","EE3511":"A+","EE3512":"A+","EE3591":"U","MX3084":"O","NM1115":"A+"}},"923823105036":{"name":"NITHIYASREE S","subjects":{"GE3152":"B+","MA3151":"B","EE3251":"A","GE3252":"UA","PH3202":"B+","CS3353":"U","EC3301":"B+","EE3301":"U","EE3302":"B+","EE3303":"U","MA3303":"U","EE3401":"U","EE3402":"U","EE3403":"U","EE3404":"U","EE3405":"B+","EE3004":"B+","EE3009":"A","EE3014":"B+","EE3501":"B+","EE3503":"B+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"A+"}},"923823105048":{"name":"SARAVANAPERUMAL M","subjects":{"GE3152":"UA","PH3151":"UA","BE3255":"UA","EE3251":"U","GE3252":"UA","HS3252":"B","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"UA","EE3303":"U","MA3303":"U","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","GE3451":"UA","EE3004":"U","EE3009":"B+","EE3014":"B+","EE3501":"U","EE3503":"U","EE3511":"A","EE3512":"A+","EE3591":"U","MX3084":"A+","NM1115":"A+"}},"923823105052":{"name":"SUBAASH P M","subjects":{"GE3152":"B","MA3151":"U","PH3151":"B","EE3251":"U","GE3251":"B","MA3251":"U","PH3202":"B+","CS3353":"U","EC3301":"B+","EE3301":"U","EE3302":"B","EE3303":"U","MA3303":"U","EE3401":"UA","EE3402":"U","EE3403":"UA","EE3404":"B+","EE3405":"U","GE3451":"U","EE3004":"B+","EE3009":"B+","EE3014":"B+","EE3501":"U","EE3503":"U","EE3511":"A+","EE3512":"O","EE3591":"U","MX3084":"A+","NM1115":"O"}},"923823105054":{"name":"SUDHIN S","subjects":{"GE3151":"U","GE3152":"UA","MA3151":"UA","EE3251":"UA","GE3252":"UA","MA3251":"UA","PH3202":"UA","CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"UA","MA3303":"B","EE3401":"UA","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","GE3451":"UA","EE3004":"U","EE3009":"B+","EE3014":"B+","EE3501":"U","EE3503":"U","EE3511":"A","EE3512":"A+","EE3591":"U","MX3084":"A+","NM1115":"O"}},"923824105004":{"name":"ADITHYAN R","subjects":{"CY3151":"UA","GE3151":"UA","GE3152":"UA","HS3152":"UA","PH3151":"UA","BE3255":"UA","EE3251":"U","GE3251":"UA","HS3252":"U","MA3251":"UA","PH3202":"UA","CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"A","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"B+","GE3361":"A","MA3303":"U","NM1023":"A+"}},"923824105008":{"name":"ARUN KUMAR S","subjects":{"PH3151":"B+","GE3251":"B+","CS3353":"B+","CS3362":"A+","EC3301":"B","EC3311":"A+","EE3301":"U","EE3302":"B","EE3303":"B+","EE3311":"A+","GE3361":"A+","MA3303":"B+","NM1023":"A+"}},"923824105009":{"name":"ATHIRSTALAKSHMI B","subjects":{"GE3151":"B","PH3151":"B","EE3251":"B+","CS3353":"B","CS3362":"A+","EC3301":"U","EC3311":"O","EE3301":"B+","EE3302":"B","EE3303":"U","EE3311":"A+","GE3361":"A","MA3303":"U","NM1023":"O"}},"923824105011":{"name":"BHUVANESH SHANMUGAMP","subjects":{"HS3152":"U","PH3151":"U","EE3251":"U","GE3251":"B","MA3251":"UA","PH3202":"U","CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"O","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"O","GE3361":"A+","MA3303":"U","NM1023":"O"}},"923824105012":{"name":"DEVABALAN P T","subjects":{"PH3151":"B","EE3251":"B+","GE3251":"B","CS3353":"B","CS3362":"A+","EC3301":"B+","EC3311":"A+","EE3301":"U","EE3302":"B","EE3303":"U","EE3311":"A","GE3361":"A","MA3303":"U","NM1023":"A+"}},"923824105020":{"name":"HARINI K","subjects":{"GE3152":"B+","PH3151":"B+","BE3255":"U","GE3251":"B","GE3252":"UA","MA3251":"B","PH3202":"UA","CS3353":"B+","CS3362":"A+","EC3301":"B+","EC3311":"A+","EE3301":"B+","EE3302":"U","EE3303":"U","EE3311":"A+","GE3361":"A+","MA3303":"B+","NM1023":"A+"}},"923824105024":{"name":"KASINATHAN R","subjects":{"MA3151":"UA","PH3151":"U","BE3255":"U","EE3251":"U","GE3251":"B+","HS3252":"B+","MA3251":"UA","PH3202":"U","CS3353":"B","CS3362":"A+","EC3301":"U","EC3311":"A+","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A","GE3361":"A","MA3303":"U","NM1023":"A+"}},"923824105032":{"name":"MUTHU PANDIYAN M","subjects":{"GE3151":"B","GE3152":"B+","PH3151":"B","GE3251":"B","GE3252":"UA","MA3251":"U","PH3202":"U","CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"A+","EE3301":"U","EE3302":"U","EE3303":"B+","EE3311":"A","GE3361":"A+","MA3303":"U","NM1023":"A+"}},"923824105038":{"name":"PRIYADHARSHINI K","subjects":{"PH3151":"UA","EE3251":"B+","GE3251":"B","HS3252":"B+","MA3251":"B","PH3202":"B+","CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"O","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A+","GE3361":"A","MA3303":"U","NM1023":"O"}},"923824105040":{"name":"RENGANAYAKI S","subjects":{"PH3151":"B","EE3251":"A","GE3251":"B+","HS3252":"U","MA3251":"B","PH3202":"B+","CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"B","EE3303":"U","EE3311":"A+","GE3361":"A+","MA3303":"B","NM1023":"O"}},"923824105043":{"name":"SARAVANA KUMAR S","subjects":{"CY3151":"UA","GE3151":"UA","MA3151":"UA","PH3151":"UA","BE3255":"UA","EE3251":"UA","GE3251":"UA","HS3252":"U","MA3251":"UA","PH3202":"UA","CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"A+","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"UA","GE3361":"A","MA3303":"U","NM1023":"A+"}},"923824105048":{"name":"SOUNDHARYA K","subjects":{"GE3151":"U","PH3151":"B","BE3255":"U","EE3251":"B+","GE3251":"B","HS3252":"U","MA3251":"B","PH3202":"U","CS3353":"B","CS3362":"A+","EC3301":"B","EC3311":"O","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A+","GE3361":"A+","MA3303":"U","NM1023":"O"}},"923824105051":{"name":"SUBADHARSHINI S","subjects":{"PH3151":"B","EE3251":"B+","GE3251":"B","PH3202":"UA","CS3353":"B+","CS3362":"A+","EC3301":"B+","EC3311":"O","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A","GE3361":"A","MA3303":"B","NM1023":"O"}},"923824105052":{"name":"SUJITH R","subjects":{"PH3151":"B","EE3251":"UA","GE3251":"B","HS3252":"U","MA3251":"UA","PH3202":"U","CS3353":"B","CS3362":"A+","EC3301":"B","EC3311":"A+","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A+","GE3361":"A+","MA3303":"U","NM1023":"O"}},"923824105055":{"name":"UMARANI P P","subjects":{"MA3151":"U","PH3151":"U","EE3251":"UA","GE3251":"B","MA3251":"UA","PH3202":"UA","CS3353":"U","CS3362":"A+","EC3301":"B","EC3311":"O","EE3301":"U","EE3302":"U","EE3303":"B","EE3311":"A+","GE3361":"A+","MA3303":"U","NM1023":"O"}},"923824105059":{"name":"YOGALAKSHMI B","subjects":{"MA3151":"U","EE3251":"A","GE3251":"B+","HS3252":"B","MA3251":"U","PH3202":"B+","CS3353":"B","CS3362":"A+","EC3301":"B+","EC3311":"O","EE3301":"B","EE3302":"U","EE3303":"U","EE3311":"A+","GE3361":"A+","MA3303":"U","NM1023":"O"}},"923825105001":{"name":"AJAN R","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"U","MA25C01":"U","ME25C04":"A+","PH25C01":"UA","UC25A01":"S","UC25A02":"A+","UC25H01":"U"}},"923825105002":{"name":"AMEERA BANU R","subjects":{"CS25C01":"A+","CY25C01":"A","EE25C03":"B","EN25C01":"B","MA25C01":"B","ME25C04":"S","PH25C01":"B+","UC25A01":"S","UC25A02":"A+","UC25H01":"A"}},"923825105003":{"name":"ARUNPANDI A","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"B","EN25C01":"B+","MA25C01":"U","ME25C04":"S","PH25C01":"U","UC25A01":"S","UC25A02":"S","UC25H01":"A"}},"923825105004":{"name":"BALAJI J","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"B","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"B"}},"923825105005":{"name":"DEEPIKA S","subjects":{"CS25C01":"B+","CY25C01":"A","EE25C03":"B+","EN25C01":"B","MA25C01":"A+","ME25C04":"S","PH25C01":"A","UC25A01":"S","UC25A02":"A+","UC25H01":"A+"}},"923825105006":{"name":"DEVADHARSHINI G","subjects":{"CS25C01":"A","CY25C01":"A+","EE25C03":"A","EN25C01":"A","MA25C01":"A+","ME25C04":"S","PH25C01":"A","UC25A01":"S","UC25A02":"S","UC25H01":"A"}},"923825105007":{"name":"DHARANIDHARAN M","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"B","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"A+","UC25A02":"S","UC25H01":"B"}},"923825105008":{"name":"ESWARAN C","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"U","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"B"}},"923825105009":{"name":"GIRIVASAN A V","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"B","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"S","UC25H01":"B"}},"923825105010":{"name":"HARIHARAN P R","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"U","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"A"}},"923825105011":{"name":"HARSHINI D","subjects":{"CS25C01":"A","CY25C01":"B+","EE25C03":"A","EN25C01":"A+","MA25C01":"B","ME25C04":"S","PH25C01":"B+","UC25A01":"S","UC25A02":"S","UC25H01":"A"}},"923825105012":{"name":"HEMAPRIYA P J","subjects":{"CS25C01":"B+","CY25C01":"U","EE25C03":"U","EN25C01":"A+","MA25C01":"U","ME25C04":"S","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"B"}},"923825105013":{"name":"ISSAC STEVE S","subjects":{"CS25C01":"B+","CY25C01":"U","EE25C03":"U","EN25C01":"B","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"B+"}},"923825105014":{"name":"JACOB JEBARAJ G","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"A","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"A+","UC25A02":"A+","UC25H01":"U"}},"923825105015":{"name":"JANANI K R","subjects":{"CS25C01":"A","CY25C01":"U","EE25C03":"U","EN25C01":"A","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"B"}},"923825105016":{"name":"JOEAL PRINCERAJ P","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"B","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"U"}},"923825105017":{"name":"LEKHASHRI S","subjects":{"CS25C01":"A+","CY25C01":"A","EE25C03":"C+","EN25C01":"A","MA25C01":"B+","ME25C04":"S","PH25C01":"B+","UC25A01":"S","UC25A02":"A+","UC25H01":"A"}},"923825105018":{"name":"LIBY JAMES M","subjects":{"CS25C01":"U","CY25C01":"B+","EE25C03":"B","EN25C01":"A+","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"B+"}},"923825105019":{"name":"POTHIRAJA P","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"U","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"S","UC25H01":"B+"}},"923825105020":{"name":"RAJESHKANNA M","subjects":{"CS25C01":"U","CY25C01":"B+","EE25C03":"U","EN25C01":"A+","MA25C01":"B","ME25C04":"S","PH25C01":"A","UC25A01":"S","UC25A02":"S","UC25H01":"B+"}},"923825105021":{"name":"ROOBAN J","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"U","MA25C01":"U","ME25C04":"S","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"U"}},"923825105022":{"name":"SANJAY P","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"U","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"U"}},"923825105023":{"name":"SANTHOSH I","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"U","EN25C01":"U","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"U"}},"923825105024":{"name":"SELVA PANDI K S","subjects":{"CS25C01":"U","CY25C01":"U","EE25C03":"B","EN25C01":"A","MA25C01":"U","ME25C04":"A+","PH25C01":"B+","UC25A01":"S","UC25A02":"A+","UC25H01":"B"}},"923825105025":{"name":"SHIVANI A","subjects":{"CS25C01":"B+","CY25C01":"U","EE25C03":"U","EN25C01":"C+","MA25C01":"U","ME25C04":"S","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"B"}},"923825105026":{"name":"SRI JEYAVISHNUKUMAR LR","subjects":{"CS25C01":"A","CY25C01":"B+","EE25C03":"B+","EN25C01":"A+","MA25C01":"A","ME25C04":"S","PH25C01":"A","UC25A01":"S","UC25A02":"A+","UC25H01":"A"}},"923825105027":{"name":"SRIRAM V R","subjects":{"CS25C01":"A","CY25C01":"B+","EE25C03":"B","EN25C01":"A","MA25C01":"U","ME25C04":"S","PH25C01":"B+","UC25A01":"S","UC25A02":"S","UC25H01":"A"}},"923825105028":{"name":"SWETHA S","subjects":{"CS25C01":"A","CY25C01":"U","EE25C03":"U","EN25C01":"A","MA25C01":"U","ME25C04":"A+","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"A+"}},"923825105029":{"name":"YOGARAJAN M","subjects":{"CS25C01":"A","CY25C01":"U","EE25C03":"U","EN25C01":"B+","MA25C01":"U","ME25C04":"S","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"A+"}},"923825105030":{"name":"YOGESH L","subjects":{"CS25C01":"A","CY25C01":"B+","EE25C03":"U","EN25C01":"A","MA25C01":"U","ME25C04":"S","PH25C01":"U","UC25A01":"S","UC25A02":"A+","UC25H01":"A"}},"923821105003":{"name":"ABDUL KHADHIR JEELANIB","subjects":{"MA3251":"B","MA3303":"U","EE3503":"U"}},"923821105012":{"name":"GOPINATH P","subjects":{"PH3202":"B+","EC3301":"U","EE3301":"U","EE3302":"U","EE3303":"U","MA3303":"U","EE3401":"B+","EE3404":"UA","EE3405":"UA","EE3006":"UA","EE3501":"U","EE3503":"UA","EE3591":"U","EE3602":"U"}},"923821105032":{"name":"NAGALINGAM G","subjects":{"GE3251":"B+","PH3202":"B+","EC3301":"B+","EE3303":"B+","EE3501":"B+","EE3503":"B+"}},"923821105053":{"name":"UDHAYA BALA K","subjects":{"MA3251":"B","EE3503":"B+"}},"923822105006":{"name":"BHARATH K","subjects":{"BE3255":"A","EC3301":"B","EE3302":"B+","EE3303":"B+","EE3404":"B","CME365":"B+","EE3701":"U","GE3752":"A","GE3791":"A","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105014":{"name":"GOKILA K","subjects":{"PH3202":"B+","CS3353":"B","EC3301":"B","EE3303":"B","EE3405":"U","GE3451":"U","EE3503":"B+","EE3591":"U","EE3601":"U","EE3602":"U","CME365":"B+","EE3701":"B+","GE3752":"B+","GE3791":"B+","NM1123":"A+","OCS352":"B+","OMR353":"B+"}},"923822105046":{"name":"SELVA S","subjects":{"MA3251":"B","EC3301":"B","EE3301":"B","EE3303":"U","MA3303":"U","EE3401":"U","EE3402":"U","EE3403":"B","EE3404":"U","EE3405":"U","GE3451":"U","EE3004":"B","EE3501":"U","EE3503":"UA","EE3591":"B","EE3601":"B+","EE3602":"B","CME365":"B","EE3701":"U","GE3752":"B+","GE3791":"U","NM1123":"A+","OCS352":"B+","OMR353":"B"}},"923823105020":{"name":"ISWARYA R","subjects":{"GE3251":"B+","EC3301":"B+","EE3302":"B","EE3303":"U","MA3303":"B","EE3401":"O","EE3402":"UA","EE3404":"U","EE3405":"B+","GE3451":"U","EE3004":"B+","EE3009":"B+","EE3014":"B+","EE3501":"U","EE3503":"U","EE3511":"A+","EE3512":"A+","EE3591":"U","MX3084":"A+","NM1115":"O"}},"923823105051":{"name":"SRIYASHINI N","subjects":{"PH3202":"U","EC3301":"U","EE3301":"U","EE3302":"B+","EE3401":"U","EE3404":"B+","GE3451":"U","EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"A+","EE3512":"O","EE3591":"U","MX3084":"O","NM1115":"O"}},"923824105006":{"name":"AJAY ANGUSAMY K","subjects":{"PH3202":"U","CS3353":"B+","CS3362":"A+","EC3301":"U","EC3311":"A+","EE3301":"U","EE3302":"B+","EE3303":"B+","EE3311":"A+","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105007":{"name":"ARUNADEVI T","subjects":{"EE3251":"B+","PH3202":"UA","CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"O","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A+","GE3361":"A","MA3303":"U","NM1023":"A+"}},"923824105014":{"name":"DHARSHINI A","subjects":{"PH3202":"B+","CS3353":"B+","CS3362":"O","EC3301":"A","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"B+","EE3311":"A+","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105017":{"name":"DURGADEVI K","subjects":{"GE3251":"B","CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"B+","EE3311":"O","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105022":{"name":"ISHWARYA K","subjects":{"MA3251":"B","CS3353":"B","CS3362":"A+","EC3301":"B+","EC3311":"O","EE3301":"U","EE3302":"B+","EE3303":"U","EE3311":"A+","GE3361":"O","MA3303":"U","NM1023":"O"}},"923824105025":{"name":"KASTHOORI K","subjects":{"EE3251":"A","GE3251":"B+","CS3353":"B+","CS3362":"A+","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"B+","EE3311":"O","GE3361":"O","MA3303":"U","NM1023":"A+"}},"923824105027":{"name":"KOWSALYA S","subjects":{"GE3251":"B","PH3202":"U","CS3353":"B+","CS3362":"O","EC3301":"U","EC3311":"A+","EE3301":"U","EE3302":"U","EE3303":"B+","EE3311":"A","GE3361":"A+","MA3303":"B","NM1023":"O"}},"923824105028":{"name":"LAKSHMANAN E","subjects":{"EE3251":"A","GE3251":"B","MA3251":"U","PH3202":"B+","CS3353":"B","CS3362":"A+","EC3301":"U","EC3311":"A+","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A","GE3361":"A+","MA3303":"U","NM1023":"A+"}},"923824105029":{"name":"MAANISHA K B","subjects":{"PH3202":"B+","CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"U","EE3311":"A+","GE3361":"A+","MA3303":"B+","NM1023":"O"}},"923824105030":{"name":"MADHAN A","subjects":{"PH3202":"B+","CS3353":"B","CS3362":"A+","EC3301":"B+","EC3311":"A+","EE3301":"B+","EE3302":"B","EE3303":"B+","EE3311":"A+","GE3361":"A+","MA3303":"B","NM1023":"O"}},"923824105031":{"name":"MATHESH KUMAR M","subjects":{"MA3251":"B","CS3353":"B+","CS3362":"A+","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"A","EE3311":"A+","GE3361":"A+","MA3303":"B+","NM1023":"A+"}},"923824105034":{"name":"NATHI DEVAN S","subjects":{"EE3251":"B+","PH3202":"B+","CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"B+","EE3311":"A+","GE3361":"A+","MA3303":"B","NM1023":"A+"}},"923824105035":{"name":"NITHISHRAJA K","subjects":{"GE3251":"B","CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"A+","EE3301":"B","EE3302":"B","EE3303":"U","EE3311":"A+","GE3361":"A+","MA3303":"B","NM1023":"A+"}},"923824105036":{"name":"PANDISELVI G","subjects":{"EE3251":"A","HS3252":"B","MA3251":"B","PH3202":"B+","CS3353":"B+","CS3362":"A+","EC3301":"U","EC3311":"O","EE3301":"U","EE3302":"B+","EE3303":"U","EE3311":"A+","GE3361":"A+","MA3303":"U","NM1023":"O"}},"923824105037":{"name":"PREETHI T M","subjects":{"EE3251":"A","HS3252":"B+","CS3353":"U","CS3362":"A+","EC3301":"B","EC3311":"O","EE3301":"B","EE3302":"U","EE3303":"U","EE3311":"A+","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105041":{"name":"SAM JESWIN H","subjects":{"HS3252":"U","CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"O","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A+","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105042":{"name":"SARASWATHY V","subjects":{"EE3251":"B+","PH3202":"B+","CS3353":"B+","CS3362":"A+","EC3301":"B","EC3311":"O","EE3301":"U","EE3302":"B+","EE3303":"B+","EE3311":"A+","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105046":{"name":"SIKKANDAR SHABIR M","subjects":{"EE3251":"A","GE3251":"B","CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"B+","EE3311":"A","GE3361":"O","MA3303":"U","NM1023":"O"}},"923824105047":{"name":"SINDHUJA N","subjects":{"GE3251":"B","PH3202":"A","CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"U","EE3302":"B+","EE3303":"B+","EE3311":"O","GE3361":"A+","MA3303":"U","NM1023":"O"}},"923824105049":{"name":"SREEDHARAN R K","subjects":{"EE3251":"B+","GE3251":"U","HS3252":"U","MA3251":"U","PH3202":"U","CS3353":"B","CS3362":"A+","EC3301":"U","EC3311":"A+","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A","GE3361":"A","MA3303":"U","NM1023":"O"}},"923824105050":{"name":"SRI SURUTHI S","subjects":{"GE3251":"B+","CS3353":"B+","CS3362":"A+","EC3301":"A","EC3311":"O","EE3301":"U","EE3302":"B+","EE3303":"B+","EE3311":"A+","GE3361":"A+","MA3303":"U","NM1023":"O"}},"923824105054":{"name":"SURESHKUMAR T","subjects":{"EE3251":"A","GE3251":"B","PH3202":"B+","CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"A+","EE3301":"U","EE3302":"B+","EE3303":"B+","EE3311":"A+","GE3361":"A+","MA3303":"U","NM1023":"A+"}},"923824105056":{"name":"VASANTHA KUMAR R","subjects":{"PH3202":"B+","CS3353":"B+","CS3362":"A+","EC3301":"B+","EC3311":"A+","EE3301":"B","EE3302":"B+","EE3303":"U","EE3311":"A+","GE3361":"O","MA3303":"B+","NM1023":"A+"}},"923824105057":{"name":"VIDHYA J","subjects":{"EE3251":"A+","HS3252":"B","MA3251":"U","CS3353":"U","CS3362":"A+","EC3301":"B+","EC3311":"O","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A+","GE3361":"A+","MA3303":"B","NM1023":"A+"}},"923819105037":{"name":"PRAKASHPANDI D","subjects":{"EE8311":"A","EE8005":"U","EE8601":"U","EE8602":"B","EE8691":"U","EE8701":"B","EE8702":"U","EE8703":"B","EE8711":"A","EE8712":"A+","GE8071":"U","GE8077":"B+","OCS752":"B"}},"923821105021":{"name":"KARTHIKEYAN R","subjects":{"CS3353":"U","EE3303":"B+","MA3303":"U","EE3401":"B","EE3405":"B+","EE3503":"U","EE3591":"U","EE3701":"B"}},"923821105039":{"name":"PRIYANKA S","subjects":{"EE3303":"B+","EE3503":"U"}},"923822105028":{"name":"NAVANEETHA PRIYA K","subjects":{"EC3301":"UA","EE3302":"UA","EE3303":"UA","EE3405":"UA","EE3601":"UA","CME365":"UA","EE3701":"UA","GE3752":"UA","GE3791":"UA","NM1123":"UA","OCS352":"UA","OMR353":"UA"}},"923822105037":{"name":"RANJITH KUMAR S","subjects":{"EC3301":"B+","EE3503":"B","EE3601":"B+","CME365":"B+","EE3701":"B+","GE3752":"U","GE3791":"B+","NM1123":"A+","OCS352":"A","OMR353":"A"}},"923822105048":{"name":"SIVANESH S","subjects":{"EE3301":"U","EE3405":"B+","EE3503":"B","EE3591":"B","EE3601":"B+","CME365":"B+","EE3701":"B+","GE3752":"U","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105052":{"name":"SURYA S","subjects":{"EC3301":"B","EE3302":"B","MA3303":"U","EE3405":"B+","EE3501":"B","EE3591":"B","EE3602":"B+","CME365":"B+","EE3701":"B+","GE3752":"A","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105301":{"name":"MOHAMMED AL AZEEZ A","subjects":{"CS3353":"UA","EC3301":"UA","EE3301":"UA","EE3302":"UA","EE3303":"UA","MA3303":"UA","EE3401":"U","EE3402":"UA","EE3403":"UA","EE3404":"UA","EE3405":"UA","EE3004":"B","EE3501":"UA","EE3503":"UA","EE3591":"UA","EE3601":"UA","EE3602":"UA","CME365":"UA","EE3701":"UA","GE3752":"U","GE3791":"UA","NM1123":"A+","OCS352":"B+","OMR353":"UA"}},"923823105003":{"name":"AJAY P","subjects":{"CS3353":"B+","EC3301":"B+","EE3402":"U","EE3403":"B+","EE3405":"B+","EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"U","EE3503":"B+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105010":{"name":"DEEPIKA K","subjects":{"EE3302":"B+","EE3401":"O","EE3405":"B+","EE3004":"A+","EE3009":"A+","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"O","EE3512":"O","EE3591":"A","MX3084":"O","NM1115":"A+"}},"923823105016":{"name":"EZHIL MARAN P","subjects":{"CS3353":"U","EC3301":"U","EE3302":"U","EE3401":"UA","EE3402":"U","EE3403":"UA","EE3404":"B+","EE3405":"B+","EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"A+","EE3512":"A+","EE3591":"U","MX3084":"O","NM1115":"O"}},"923823105022":{"name":"JAI AKASH K","subjects":{"EC3301":"U","EE3302":"B+","EE3303":"U","EE3401":"B+","EE3402":"B","EE3404":"B+","EE3405":"B+","EE3004":"B+","EE3009":"A","EE3014":"B+","EE3501":"U","EE3503":"B+","EE3511":"A+","EE3512":"A+","EE3591":"U","MX3084":"O","NM1115":"O"}},"923823105029":{"name":"MOHAMMED RENUSHAKITH S","subjects":{"EE3303":"B","MA3303":"B","EE3401":"B","EE3402":"U","EE3403":"B+","EE3404":"B+","EE3405":"B+","EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"A+","EE3512":"O","EE3591":"B+","MX3084":"A+","NM1115":"A+"}},"923823105031":{"name":"MUNEESHWARI M","subjects":{"EC3301":"B+","MA3303":"U","EE3401":"U","EE3402":"B+","EE3403":"U","EE3404":"B+","EE3405":"U","GE3451":"B+","EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105033":{"name":"NAGAVALLI D","subjects":{"EE3301":"U","EE3302":"B","EE3303":"U","EE3401":"U","EE3402":"B","EE3405":"B+","GE3451":"U","EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"U","EE3503":"B","EE3511":"A+","EE3512":"A+","EE3591":"U","MX3084":"O","NM1115":"A+"}},"923823105034":{"name":"NARENDRAN C","subjects":{"EC3301":"U","EE3405":"UA","EE3004":"A","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105041":{"name":"PRAVEEN KARTHIK G","subjects":{"EE3302":"U","MA3303":"U","EE3402":"B+","EE3004":"A","EE3009":"B+","EE3014":"A","EE3501":"B+","EE3503":"U","EE3511":"A+","EE3512":"A+","EE3591":"U","MX3084":"A+","NM1115":"A+"}},"923823105042":{"name":"PRIYADHARSHINI M","subjects":{"EE3302":"B+","EE3401":"B+","EE3402":"B+","EE3404":"B+","EE3405":"B+","EE3004":"A","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105043":{"name":"PRIYADHARSHINI V","subjects":{"EC3301":"B+","EE3302":"B+","EE3303":"U","EE3401":"UA","EE3404":"U","EE3405":"B+","EE3004":"A","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105045":{"name":"RAMKUMAR B","subjects":{"EC3301":"B+","MA3303":"U","EE3405":"B+","EE3004":"A","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"A","EE3511":"A+","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105057":{"name":"VARSHINI J","subjects":{"EC3301":"B+","EE3302":"A","EE3401":"O","EE3404":"B+","EE3405":"B+","GE3451":"U","EE3004":"B+","EE3009":"A+","EE3014":"A","EE3501":"B+","EE3503":"A","EE3511":"O","EE3512":"O","EE3591":"A","MX3084":"O","NM1115":"O"}},"923823105058":{"name":"VIGNESHWARAN M","subjects":{"CS3353":"B+","EC3301":"B","EE3302":"B+","EE3401":"A","EE3404":"B+","EE3405":"B+","EE3004":"B+","EE3009":"B+","EE3014":"B+","EE3501":"B","EE3503":"B","EE3511":"A","EE3512":"A+","EE3591":"B+","MX3084":"A+","NM1115":"A+"}},"923824105001":{"name":"AATHEESWARI K","subjects":{"CS3353":"B+","CS3362":"A+","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"B+","EE3311":"O","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105002":{"name":"ABARNA K","subjects":{"CS3353":"A","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"A","EE3303":"A","EE3311":"O","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105003":{"name":"ABINESH C","subjects":{"CS3353":"B+","CS3362":"A+","EC3301":"B+","EC3311":"A+","EE3301":"U","EE3302":"B+","EE3303":"U","EE3311":"A","GE3361":"A+","MA3303":"B","NM1023":"A+"}},"923824105005":{"name":"AFRIN I","subjects":{"CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"B","EE3302":"B+","EE3303":"U","EE3311":"O","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105010":{"name":"BARATHRAJ N","subjects":{"CS3353":"B","CS3362":"A+","EC3301":"B","EC3311":"O","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A","GE3361":"O","MA3303":"B+","NM1023":"A+"}},"923824105013":{"name":"DHARANI SRI D","subjects":{"CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"B+","EE3311":"O","GE3361":"O","MA3303":"B+","NM1023":"A+"}},"923824105015":{"name":"DHARSINI J B","subjects":{"CS3353":"B+","CS3362":"O","EC3301":"A+","EC3311":"O","EE3301":"B+","EE3302":"A+","EE3303":"A+","EE3311":"O","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105016":{"name":"DURGA DEVI M","subjects":{"CS3353":"B+","CS3362":"O","EC3301":"A+","EC3311":"O","EE3301":"U","EE3302":"B+","EE3303":"A","EE3311":"O","GE3361":"A+","MA3303":"B+","NM1023":"O"}},"923824105018":{"name":"DURGADEVIDEEPA R","subjects":{"CS3353":"U","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"B+","EE3311":"A+","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105019":{"name":"GAYATHRI M","subjects":{"CS3353":"B+","CS3362":"A+","EC3301":"B+","EC3311":"O","EE3301":"A+","EE3302":"B+","EE3303":"B+","EE3311":"O","GE3361":"A+","MA3303":"B+","NM1023":"O"}},"923824105021":{"name":"HARINI MAI A V","subjects":{"CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"B+","EE3311":"O","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105023":{"name":"KALAIVANI V","subjects":{"CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"A+","EE3301":"B","EE3302":"B+","EE3303":"B+","EE3311":"A","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105033":{"name":"NANDHINI V","subjects":{"CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"A","EE3303":"B+","EE3311":"O","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105044":{"name":"SAVITHANA SRI M","subjects":{"CS3353":"B+","CS3362":"O","EC3301":"A","EC3311":"O","EE3301":"A","EE3302":"B+","EE3303":"A","EE3311":"O","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105045":{"name":"SHEELA DEVI P","subjects":{"CS3353":"B+","CS3362":"O","EC3301":"B+","EC3311":"O","EE3301":"B+","EE3302":"A","EE3303":"B+","EE3311":"O","GE3361":"O","MA3303":"U","NM1023":"O"}},"923824105053":{"name":"SUJITHA D","subjects":{"CS3353":"B+","CS3362":"O","EC3301":"A","EC3311":"O","EE3301":"B+","EE3302":"U","EE3303":"B+","EE3311":"O","GE3361":"O","MA3303":"B+","NM1023":"O"}},"923824105301":{"name":"VIGNESH P","subjects":{"CS3353":"B+","CS3362":"A+","EC3301":"B","EC3311":"O","EE3301":"B+","EE3302":"B+","EE3303":"U","EE3311":"A+","GE3361":"A","MA3303":"B","NM1023":"A+"}},"923824105302":{"name":"VIGNESHWAR L","subjects":{"CS3353":"U","CS3362":"A+","EC3301":"U","EC3311":"A+","EE3301":"U","EE3302":"U","EE3303":"U","EE3311":"A","GE3361":"A","MA3303":"U","NM1023":"O"}},"923820105025":{"name":"PANDILAKSHMI G","subjects":{"MA8491":"UA","EE8701":"UA","EE8015":"UA"}},"923822105001":{"name":"AARTHI B","subjects":{"EE3401":"U","EE3405":"UA","EE3501":"UA","EE3503":"U","EE3591":"B","EE3601":"B+","CME365":"B+","EE3701":"U","GE3752":"U","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"A"}},"923823105015":{"name":"DRAVID S","subjects":{"EE3404":"U","EE3405":"B+","EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"A+","EE3512":"A+","EE3591":"B","MX3084":"A+","NM1115":"A+"}},"923823105023":{"name":"JOYS PAPPU J","subjects":{"EE3404":"B+","EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"A+","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105047":{"name":"RENGANAYAKI P T","subjects":{"GE3451":"B+","EE3004":"A","EE3009":"A","EE3014":"A","EE3501":"A","EE3503":"A","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105053":{"name":"SUBASHREE V","subjects":{"EE3404":"B+","EE3004":"A+","EE3009":"O","EE3014":"A","EE3501":"B+","EE3503":"A","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105059":{"name":"VISHNUKUMAR K R","subjects":{"EE3404":"B+","GE3451":"B+","EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"B+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923820105020":{"name":"MURALI KARTHICK M","subjects":{"EE8501":"U"}},"923821105017":{"name":"KAMINI M","subjects":{"EE3503":"UA"}},"923821105019":{"name":"KARTHIKEYAN M","subjects":{"EE3503":"B"}},"923821105301":{"name":"GUNASEELAN S","subjects":{"EE3001":"U","EE3503":"U","EE3602":"B","EE3701":"U"}},"923822105011":{"name":"DEEPIKA G","subjects":{"EE3591":"B+","CME365":"A","EE3701":"A+","GE3752":"A","GE3791":"A","NM1123":"O","OCS352":"A","OMR353":"A+"}},"923822105015":{"name":"GOPIKA R","subjects":{"EE3503":"A","CME365":"B+","EE3701":"A","GE3752":"A","GE3791":"B+","NM1123":"A+","OCS352":"A","OMR353":"A"}},"923822105023":{"name":"LAYSAL SAMEER N","subjects":{"EE3591":"U","CME365":"A","EE3701":"B+","GE3752":"A","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105030":{"name":"NISHANTHINI V","subjects":{"EE3503":"B","CME365":"B+","EE3701":"A","GE3752":"B+","GE3791":"B+","NM1123":"A+","OCS352":"A","OMR353":"A+"}},"923822105034":{"name":"RAJESHKUMAR M","subjects":{"EE3591":"B","CME365":"B+","EE3701":"A","GE3752":"B+","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105049":{"name":"SOWMIYA D","subjects":{"EE3591":"B+","CME365":"A","EE3701":"B+","GE3752":"A","GE3791":"A","NM1123":"O","OCS352":"A","OMR353":"A"}},"923822105053":{"name":"THULASI MEENA S","subjects":{"EE3591":"B+","EE3601":"U","CME365":"A","EE3701":"B+","GE3752":"A","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923823105001":{"name":"AASHIKA C","subjects":{"EE3004":"A+","EE3009":"A+","EE3014":"A","EE3501":"B+","EE3503":"A","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105002":{"name":"AGALYA S","subjects":{"EE3004":"O","EE3009":"O","EE3014":"A+","EE3501":"A","EE3503":"A+","EE3511":"O","EE3512":"O","EE3591":"A","MX3084":"O","NM1115":"O"}},"923823105011":{"name":"DHAARANI S","subjects":{"EE3004":"A+","EE3009":"A+","EE3014":"A+","EE3501":"A","EE3503":"A","EE3511":"A+","EE3512":"O","EE3591":"A","MX3084":"O","NM1115":"O"}},"923823105017":{"name":"GENGAMANI D","subjects":{"EE3004":"A+","EE3009":"O","EE3014":"A+","EE3501":"A","EE3503":"A","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105018":{"name":"HARISHMA S","subjects":{"EE3004":"A+","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"A","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105019":{"name":"HEMA VARSHINI M","subjects":{"EE3004":"A","EE3009":"O","EE3014":"A","EE3501":"A+","EE3503":"A+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105021":{"name":"JAGADEESWARAN G","subjects":{"EE3004":"B+","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"A","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105039":{"name":"POTHYS G","subjects":{"EE3004":"A","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"A","EE3511":"A+","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105040":{"name":"PRAVEENA P","subjects":{"EE3004":"A","EE3009":"A+","EE3014":"A+","EE3501":"A","EE3503":"A+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105046":{"name":"RAMYA M","subjects":{"EE3004":"A","EE3009":"A","EE3014":"A","EE3501":"B+","EE3503":"A+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923823105049":{"name":"SHALINI DEVI R","subjects":{"EE3004":"A","EE3009":"A","EE3014":"A+","EE3501":"A","EE3503":"A+","EE3511":"O","EE3512":"O","EE3591":"B+","MX3084":"O","NM1115":"O"}},"923819105003":{"name":"ABISHAK B","subjects":{"EE8004":"UA","EE8601":"UA","EE8602":"UA","EE8691":"UA","EE8702":"UA","GE8077":"UA"}},"923819105007":{"name":"BALAMURUGAN J","subjects":{"EE8004":"B","EE8601":"U","EE8602":"B","EE8701":"B","EE8015":"B"}},"923819105047":{"name":"VASANTH K","subjects":{"EE8602":"B","EE8702":"U","GE8071":"UA","OCS752":"B"}},"923821105022":{"name":"KEERTHIGA B","subjects":{"EE3033":"B+","OMR353":"B+"}},"923821105501":{"name":"GURU ISHWAR S","subjects":{"EE3033":"UA","EE3601":"UA","EE3602":"UA","CME365":"UA","GE3752":"UA","GE3791":"UA","OMR353":"UA"}},"923822105024":{"name":"MANIKANDAN A","subjects":{"EE3602":"B+","CME365":"A","EE3701":"B+","GE3752":"B+","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105036":{"name":"RAMYA M","subjects":{"EE3601":"B+","EE3602":"B+","CME365":"B+","EE3701":"B+","GE3752":"A","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"A+"}},"923822105039":{"name":"RESHMITHA P","subjects":{"EE3601":"A","CME365":"A","EE3701":"B+","GE3752":"A","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"A"}},"923822105056":{"name":"VINOTHA S","subjects":{"EE3601":"B+","EE3602":"B+","CME365":"A","EE3701":"B+","GE3752":"A","GE3791":"A","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923820105004":{"name":"BALAMURUGAN N","subjects":{"EE8702":"B","EE8015":"U"}},"923820105010":{"name":"ESWARI R","subjects":{"EE8702":"B","EE8015":"B"}},"923822105003":{"name":"AMRITA VARSHINI M","subjects":{"CME365":"A+","EE3701":"B+","GE3752":"A","GE3791":"A","NM1123":"O","OCS352":"A","OMR353":"B+"}},"923822105007":{"name":"BHAVANI S","subjects":{"CME365":"A","EE3701":"A+","GE3752":"A","GE3791":"A+","NM1123":"O","OCS352":"A","OMR353":"A+"}},"923822105012":{"name":"DHANUSHYA M","subjects":{"CME365":"A","EE3701":"B+","GE3752":"A","GE3791":"A+","NM1123":"O","OCS352":"A","OMR353":"A"}},"923822105020":{"name":"KAVYA P","subjects":{"CME365":"A","EE3701":"A","GE3752":"A","GE3791":"A","NM1123":"O","OCS352":"A","OMR353":"A"}},"923822105022":{"name":"LAVANYA K","subjects":{"CME365":"A","EE3701":"B+","GE3752":"A","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"A"}},"923822105025":{"name":"MANIKANDAN S","subjects":{"CME365":"A","EE3701":"B+","GE3752":"A","GE3791":"B+","NM1123":"A+","OCS352":"A","OMR353":"A"}},"923822105027":{"name":"NATHIYA S","subjects":{"CME365":"A+","EE3701":"A","GE3752":"A","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"A+"}},"923822105031":{"name":"PANDISELVI P","subjects":{"CME365":"A+","EE3701":"A+","GE3752":"A","GE3791":"A","NM1123":"O","OCS352":"A","OMR353":"O"}},"923822105042":{"name":"SAKTHI DEVI P","subjects":{"CME365":"B+","EE3701":"U","GE3752":"A","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"A"}},"923822105045":{"name":"SANTHIYA V","subjects":{"CME365":"A","EE3701":"B+","GE3752":"U","GE3791":"B+","NM1123":"O","OCS352":"A","OMR353":"A+"}},"923822105047":{"name":"SISMITHA T","subjects":{"CME365":"A+","EE3701":"A","GE3752":"A","GE3791":"A","NM1123":"O","OCS352":"A","OMR353":"A+"}},"923822105057":{"name":"YOGAPRIYADHARSHINI J","subjects":{"CME365":"A+","EE3701":"U","GE3752":"A","GE3791":"A","NM1123":"O","OCS352":"A+","OMR353":"A"}},"923820105007":{"name":"DEEPA S","subjects":{"EE8015":"B"}}};
+  // Wait for the main scripts to initialise then inject the data
+  document.addEventListener('DOMContentLoaded', function() {
+    allStudents = _embeddedStudents;
+    buildSheetData();
+    showResults();
+    // Switch default landing to Student portal since data is already loaded
+    // Staff upload UI is hidden because data is pre-loaded
+    document.getElementById('upload-section').style.display = 'none';
+    document.getElementById('summary-section').style.display = 'block';
+  });
+})();
+</script>
+</body>
   const injectionScript = `
 <script id="__embedded_data__">
 (function(){
@@ -1195,5 +1579,6 @@ document.addEventListener('keydown', e => {
     searchStudent();
 });
 </script>
-</body>
-</html>
+
+
+<span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>
